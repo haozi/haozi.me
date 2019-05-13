@@ -1,10 +1,10 @@
 {
-  "name": "姜帅杰",
-  "short_name": "姜帅杰",
+  "name": "耗子么",
+  "short_name": "耗子么",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#2196f3",
-  "description": "姜帅杰的个人主页",
+  "description": "耗子么",
   "theme_color": "blue",
   "icons": [
     {
@@ -16,10 +16,6 @@
   "related_applications": [
     {
       "platform": "web"
-    },
-    {
-      "platform": "play",
-      "url": "https://play.google.com/store/apps/details?id=cheeaun.hackerweb"
     }
   ]
 }
