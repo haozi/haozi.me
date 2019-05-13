@@ -1,16 +1,17 @@
 {
+  "background_color": "#8bbb96",
+  "description": "耗子么",
+  "display": "standalone",
+  "icons": [
+    {
+      "sizes": "144x144",
+      "src": "/img/avatar.png",
+      "type": "image/png"
+    }
+  ],
+  "lang": "zh-CN",
   "name": "耗子么",
   "short_name": "耗子么",
   "start_url": "index.html",
-  "display": "standalone",
-  "background_color": "#2196f3",
-  "description": "耗子么",
-  "theme_color": "blue",
-  "icons": [
-    {
-      "src": "/img/avatar.png",
-      "sizes": "144x144",
-      "type": "image/png"
-    }
-  ]
+  "theme_color": "#4fc08d"
 }
