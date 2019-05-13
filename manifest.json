@@ -12,10 +12,5 @@
       "sizes": "144x144",
       "type": "image/png"
     }
-  ],
-  "related_applications": [
-    {
-      "platform": "web"
-    }
   ]
 }
