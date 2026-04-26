@@ -1,0 +1,416 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ──────────────────────────────────────────────────────────────────
+   Two-skin site:
+     1. RETRO  (homepage `/`)        — dark 90s CRT / terminal look
+     2. MODERN (blog & content)      — Starbucks-inspired light theme
+                                       (warm cream canvas + 4-tier green)
+   The retro homepage opts in via .retro-root. Everything else inherits
+   the modern light tokens by default.
+   ────────────────────────────────────────────────────────────────── */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  /* ── Modern blog typeface (SoDoSans substitute) ──────────────── */
+  --font-sans: "Inter", "Inter Fallback", ui-sans-serif, system-ui,
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-serif: "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC",
+    Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, SFMono-Regular, "Cascadia Code",
+    "JetBrains Mono", Menlo, Consolas, monospace;
+  --font-retro: "SimSun", "Songti SC", "Microsoft YaHei", "宋体", serif;
+
+  /* ── Modern (Starbucks-inspired) palette ─────────────────────── */
+  --color-canvas: #f2f0eb;          /* Neutral Warm — page canvas */
+  --color-ceramic: #edebe9;          /* Ceramic — zone separator */
+  --color-card: #ffffff;             /* card surface */
+  --color-neutral-cool: #f9f9f9;     /* dropdown / quiet container */
+  --color-brand-green: #006241;      /* Starbucks Green — h1 / brand */
+  --color-accent-green: #00754a;     /* Green Accent — primary CTA */
+  --color-house-green: #1e3932;      /* House Green — bands / footer */
+  --color-uplift-green: #2b5148;     /* secondary mid-dark green */
+  --color-light-green: #d4e9e2;      /* pale mint wash */
+  --color-gold: #cba258;             /* Rewards-only accent (sparing) */
+  --color-gold-lightest: #faf6ee;    /* warm cream wash under gold */
+  --color-text: rgba(0, 0, 0, 0.87); /* primary text on light */
+  --color-text-soft: rgba(0, 0, 0, 0.58); /* secondary text on light */
+  --color-text-on-dark: rgba(255, 255, 255, 1);
+  --color-text-on-dark-soft: rgba(255, 255, 255, 0.7);
+  --color-rewards-green: #33433d;
+  --color-input-border: #d6dbde;
+  --color-hairline: #e7e7e7;
+  --color-red: #c82014;
+
+  /* legacy aliases kept so existing prose/components don't break */
+  --color-ink: #1a1a1a;
+  --color-paper: #ffffff;
+  --color-muted: #6b7280;
+  --color-rule: #e5e7eb;
+  --color-accent: #00754a;
+
+  /* (the dark legacy aliases below are unused now that the blog is
+     locked to light, but kept so existing code that references them
+     compiles cleanly) */
+  --color-ink-dark: #e6e6e6;
+  --color-paper-dark: #0b0b0c;
+  --color-muted-dark: #9ca3af;
+  --color-rule-dark: #1f2937;
+  --color-accent-dark: #60a5fa;
+
+  /* ── Radius / shadow / spacing tokens ────────────────────────── */
+  --radius-card: 12px;
+  --radius-pill: 50px;
+  --shadow-card: 0 0 0.5px rgba(0, 0, 0, 0.14),
+    0 1px 1px rgba(0, 0, 0, 0.24);
+  --shadow-card-hover: 0 0 0.5px rgba(0, 0, 0, 0.16),
+    0 6px 16px rgba(0, 0, 0, 0.08);
+  --shadow-nav: 0 1px 3px rgba(0, 0, 0, 0.1),
+    0 2px 2px rgba(0, 0, 0, 0.06), 0 0 2px rgba(0, 0, 0, 0.07);
+  --tracking-tight: -0.01em;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Modern (default) tokens  — apply to :root so /blog/* inherits.
+   The retro homepage explicitly overrides these inside .retro-root.
+   ──────────────────────────────────────────────────────────────── */
+:root {
+  color-scheme: light;
+  --bg: var(--color-canvas);
+  --fg: var(--color-text);
+  --muted: var(--color-text-soft);
+  --rule: var(--color-hairline);
+  --accent: var(--color-accent-green);
+  --brand: var(--color-brand-green);
+  --card: var(--color-card);
+  --house: var(--color-house-green);
+}
+
+/* dark-mode tokens still defined for code blocks, but the blog itself
+   no longer toggles dark — see ThemeBootstrap. */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: var(--color-paper-dark);
+  --fg: var(--color-ink-dark);
+  --muted: var(--color-muted-dark);
+  --rule: var(--color-rule-dark);
+  --accent: var(--color-accent-dark);
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  font-family: var(--font-sans);
+  letter-spacing: var(--tracking-tight);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Scoped to blog skin so we don't pollute the retro page. */
+[data-skin="modern"] {
+  background: var(--color-canvas);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  letter-spacing: var(--tracking-tight);
+}
+
+/* ── Modern primitives ──────────────────────────────────────── */
+.modern-card {
+  background: var(--color-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.modern-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.modern-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-pill);
+  padding: 7px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.2;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+}
+.modern-pill:active {
+  transform: scale(0.95);
+}
+
+.modern-pill--filled {
+  background: var(--color-accent-green);
+  color: #fff;
+  border: 1px solid var(--color-accent-green);
+}
+.modern-pill--filled:hover {
+  background: #006a43;
+  border-color: #006a43;
+}
+
+.modern-pill--outline {
+  background: transparent;
+  color: var(--color-accent-green);
+  border: 1px solid var(--color-accent-green);
+}
+.modern-pill--outline:hover {
+  background: rgba(0, 117, 74, 0.06);
+}
+
+.modern-pill--ink {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-text);
+}
+
+.modern-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: var(--tracking-tight);
+  background: transparent;
+  color: var(--color-accent-green);
+  border: 1px solid var(--color-accent-green);
+  transition: background 0.2s ease;
+  text-decoration: none;
+}
+.modern-chip:hover {
+  background: rgba(0, 117, 74, 0.08);
+}
+
+/* ── Modern blog prose tweaks ───────────────────────────────── */
+.prose {
+  --tw-prose-body: var(--color-text);
+  --tw-prose-headings: var(--color-brand-green);
+  --tw-prose-links: var(--color-accent-green);
+  --tw-prose-bold: var(--color-text);
+  --tw-prose-counters: var(--color-text-soft);
+  --tw-prose-bullets: var(--color-text-soft);
+  --tw-prose-hr: var(--color-hairline);
+  --tw-prose-quotes: var(--color-text);
+  --tw-prose-quote-borders: var(--color-light-green);
+  --tw-prose-captions: var(--color-text-soft);
+  --tw-prose-code: var(--color-text);
+  --tw-prose-pre-code: #e6edf3;
+  --tw-prose-pre-bg: #1e3932;
+  --tw-prose-th-borders: var(--color-hairline);
+  --tw-prose-td-borders: var(--color-hairline);
+  letter-spacing: var(--tracking-tight);
+}
+
+.prose :where(h1, h2, h3, h4, h5, h6) {
+  letter-spacing: -0.012em;
+  font-weight: 600;
+}
+.prose :where(h2, h3, h4) {
+  scroll-margin-top: 6rem;
+}
+.prose .heading-anchor {
+  text-decoration: none;
+  color: inherit;
+}
+.prose .heading-anchor:hover::after {
+  content: " #";
+  color: var(--color-text-soft);
+  font-weight: 400;
+}
+
+.prose :where(a) {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(0, 117, 74, 0.4);
+  transition: text-decoration-color 0.2s ease;
+}
+.prose :where(a:hover) {
+  text-decoration-color: var(--color-accent-green);
+}
+
+.prose :where(blockquote) {
+  border-left-width: 3px;
+  border-left-color: var(--color-accent-green);
+  background: var(--color-gold-lightest);
+  border-radius: 0 8px 8px 0;
+  padding: 0.6em 1.1em;
+  font-style: normal;
+  color: var(--color-text);
+}
+.prose :where(blockquote p):first-of-type::before,
+.prose :where(blockquote p):last-of-type::after {
+  content: "";
+}
+
+/* code blocks (rehype-pretty-code) — House-Green tinted */
+.prose pre {
+  background: #1e3932;
+  color: #e6edf3;
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  font-size: 0.92em;
+  line-height: 1.6;
+  overflow-x: auto;
+  margin: 1.4em 0;
+  box-shadow: var(--shadow-card);
+}
+.prose pre code {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+}
+.prose code:not(pre code) {
+  background: var(--color-light-green);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.92em;
+  color: var(--color-house-green);
+}
+.prose pre [data-line] {
+  padding: 0 1ch;
+}
+.prose pre [data-highlighted-line] {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+/* dual-theme code blocks: hide the wrong-theme block */
+[data-theme="light"] .prose pre[data-theme="dark"],
+[data-theme="dark"] .prose pre[data-theme="light"],
+[data-theme="light"] .prose code[data-theme="dark"],
+[data-theme="dark"] .prose code[data-theme="light"] {
+  display: none;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Retro homepage isolation
+   .retro-root opts in to the dark 90s CRT skin.
+   ──────────────────────────────────────────────────────────────── */
+.retro-root {
+  font-family: var(--font-retro);
+  color: #c8ffd1;
+  background: #050608;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+.retro-root a {
+  color: #33ff66;
+  text-decoration: underline;
+  text-shadow: 0 0 4px rgba(51, 255, 102, 0.6);
+}
+.retro-root a:visited {
+  color: #c388ff;
+  text-shadow: 0 0 4px rgba(195, 136, 255, 0.4);
+}
+.retro-root a:hover {
+  color: #ffb000;
+  text-shadow: 0 0 6px rgba(255, 176, 0, 0.7);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Curtain transition (1999 → 2026)
+   Mounted at root; activated by .curtain-active.
+   ──────────────────────────────────────────────────────────────── */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+}
+.curtain-active {
+  pointer-events: auto;
+  animation: curtain-sequence 1100ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.curtain-fill {
+  position: absolute;
+  inset: 0;
+  background: #000;
+}
+.curtain-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: #33ff66;
+  box-shadow: 0 0 12px #33ff66, 0 0 24px rgba(51, 255, 102, 0.6);
+  transform: scaleX(0);
+  transform-origin: 50% 50%;
+  animation: curtain-line 1100ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.curtain-flash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    closest-side at 50% 50%,
+    rgba(51, 255, 102, 0.5),
+    rgba(51, 255, 102, 0) 70%
+  );
+  opacity: 0;
+  animation: curtain-flash 1100ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.curtain-cream {
+  position: absolute;
+  inset: 0;
+  background: var(--color-canvas);
+  opacity: 0;
+  animation: curtain-cream 1100ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes curtain-sequence {
+  0% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes curtain-line {
+  0%   { transform: scaleX(0); opacity: 1; }
+  18%  { transform: scaleX(1); opacity: 1; }
+  28%  { transform: scaleX(1) scaleY(80); opacity: 1; }
+  40%  { transform: scaleX(1) scaleY(0.001); opacity: 0; }
+  100% { transform: scaleX(1) scaleY(0); opacity: 0; }
+}
+@keyframes curtain-flash {
+  0%   { opacity: 0; }
+  22%  { opacity: 1; }
+  40%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes curtain-cream {
+  0%   { opacity: 0; }
+  35%  { opacity: 0; }
+  60%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+/* Page-content reveal on the modern side */
+.modern-reveal {
+  animation: modern-reveal 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 250ms;
+}
+@keyframes modern-reveal {
+  0%   { opacity: 0; transform: translateY(16px); filter: blur(6px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .curtain-active { animation-duration: 200ms; }
+  .curtain-line, .curtain-flash, .curtain-cream { animation-duration: 200ms; }
+  .modern-reveal { animation: none; }
+}

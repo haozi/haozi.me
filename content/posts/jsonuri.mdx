@@ -1,0 +1,53 @@
+---
+title: JSONURI — 把 URL 玩出 JSON 的味道
+date: 2025-02-20
+description: 一个我在前端项目里反复重写的小工具：用类似 a.b[0].c 的字符串读写嵌套对象。
+tags: [tooling, javascript]
+category: 工程
+---
+
+写前端写久了，就会反复遇到一种场景：
+
+> 拿到一个 URL（或者 schema 里的一个 path 字符串），需要把它对应到一个嵌套对象上，然后读 / 写 / 删。
+
+之前我把它整理成一个小库叫 `jsonuri`。本文不重复 README，只讲几个有意思的点。
+
+## 设计原则
+
+1. **path 越像 JS 写法越好**：`a.b[0].c`、`a/b/0/c` 都接受。
+2. **写不存在的路径会自动建结构**：但只有显式调用 `set()` 才会。
+3. **绝不偷偷复制**：所有操作都对原对象 in-place，调用方决定要不要 `structuredClone`。
+
+## API 一瞥
+
+```ts
+import { get, set, swap, rm } from "jsonuri";
+
+const data: Record<string, unknown> = {};
+set(data, "user.profile.tags[0]", "admin");
+// data === { user: { profile: { tags: ["admin"] } } }
+
+get(data, "user.profile.tags[0]"); // "admin"
+
+swap(data, "user.profile.tags[0]", "user.profile.tags[1]");
+rm(data, "user.profile.tags[0]");
+```
+
+## 一些边界场景
+
+- `tags[0]` 写到一个本来不存在的对象上时，应该建数组还是对象？
+  → 看 path 的下一步是不是数字下标。
+- `swap` 在跨数组 / 跨对象之间是否允许？
+  → 允许，但 `swap` 就是一次 `tmp = a; set(a, b); set(b, tmp)`，没有什么魔法。
+
+## 它解决了什么
+
+最直接的：**配置 schema 编辑器**。
+
+像 form-render、低代码搭建器这种，里面常常有一个左边大纲、右边表单的结构。当你在大纲里拖动一个节点，它本质上是在做 `swap` / `move`。直接基于 path 字符串操作比维护引用要少出很多 bug。
+
+## 我重写它的次数
+
+至少四次。每次都是因为新项目里又出现了同样的需求，但旧版本的依赖、构建、ESM 互操作、TS 类型有点老。这次写到博客里，是希望下次遇到这件事的时候我能直接 `pnpm add jsonuri` — 而不是再写一次。
+
+> 一个工具被反复重写就是它的市场验证。

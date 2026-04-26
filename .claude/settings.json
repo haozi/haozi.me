@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(set -e)",
+      "Bash(mkdir -p public/retro public/audio)",
+      "Bash(curl -fsSL --max-time 30 -o public/audio/bg.mp3 \"https://lf1-cdn-tos.bytegoofy.com/goofy/cg/fe/personpage/assets/bg.89d5d6b9.mp3\")",
+      "Bash(curl -fsSL --max-time 30 -o public/retro/welcome.png \"https://p1-gocafe-cn.byteimg.com/tos-cn-i-dyboxj1bgz/245ba8f31dfb4550907cf62b413770eb~tplv-dyboxj1bgz-70_g:0:0:0:0:0:0.image\")",
+      "Bash(curl -fsSL --max-time 30 -o public/retro/fire.gif \"https://p1-gocafe-cn.byteimg.com/tos-cn-i-dyboxj1bgz/722b024b9b374c20bfd369b0e7ce3b0c~tplv-dyboxj1bgz-70_g:0:0:0:0:0:0.image\")",
+      "Bash(echo \"exit=$?\")",
+      "Bash(pnpm build *)",
+      "Read(//tmp/**)",
+      "Read(//private/tmp/**)",
+      "Bash(pkill -f \"next-server\\\\|next dev\")",
+      "Bash(lsof -ti:3000)",
+      "Bash(xargs -r kill -9)",
+      "Bash(curl -sI -o /dev/null -w \"HTTP %{http_code} Content-Length: %{size_download}\\\\n\" --max-time 5 http://localhost:3000/)"
+    ]
+  }
+}

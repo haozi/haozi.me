@@ -1,0 +1,100 @@
+---
+title: XSS 的几种花式触发与一个被 React 默默挡掉的反例
+date: 2025-04-03
+description: 前端开发者对 XSS 的肌肉记忆来自 React，但 React 不是万能的。来盘点一下漏过去的几条窄缝。
+tags: [security, frontend, react]
+category: 安全
+---
+
+> 警告：这篇文章里的所有 payload 都是教学用，请在你自己控制的环境里复现。
+
+## React 默认安全是真的
+
+```tsx
+function Profile({ name }: { name: string }) {
+  return <h1>{name}</h1>;
+}
+```
+
+`name` 哪怕是 `<img src=x onerror=alert(1)>`，也只会被当成纯文本插进 DOM，不会执行。
+这条铁律靠的是 React 把所有 children 都当成字符串处理。
+
+## 但你只要绕过它一次……
+
+### 1. `dangerouslySetInnerHTML`
+
+```tsx
+<div dangerouslySetInnerHTML={{ __html: untrusted }} />
+```
+
+最经典的口子。**绝大多数 XSS 在 React 项目里都是这一行造成的。**
+
+### 2. `href` 协议
+
+```tsx
+<a href={user.url}>{user.url}</a>
+```
+
+`user.url = "javascript:alert(1)"`，点一下就触发。
+React 不会自动 sanitize URL 协议，需要你自己白名单：
+
+```ts
+function safeUrl(u: string) {
+  try {
+    const url = new URL(u, window.location.origin);
+    if (!/^https?:$/.test(url.protocol)) return "#";
+    return url.toString();
+  } catch {
+    return "#";
+  }
+}
+```
+
+### 3. SVG 里的 `<foreignObject>` 与 `<use>`
+
+很多富文本编辑器允许嵌入 SVG。SVG 是 XML，里面可以塞 `<script>`、`<foreignObject>` 嵌 HTML。
+对策：白名单标签，禁掉 `<script>` / `<foreignObject>` / `xlink:href` 跨源引用。
+
+### 4. CSP 缺了 `script-src`
+
+下面这条响应头看似严格其实没用：
+
+```http
+Content-Security-Policy: default-src 'self'
+```
+
+> `default-src` 不会覆盖 `script-src` 在某些 UA 下的内联回退，永远显式写。
+
+写成：
+
+```http
+Content-Security-Policy:
+  default-src 'self';
+  script-src  'self';
+  style-src   'self' 'unsafe-inline';
+  img-src     'self' data:;
+  base-uri    'self';
+  frame-ancestors 'none';
+```
+
+## 一个特别窄的反例
+
+```tsx
+const html = useMemo(() => marked.parse(content), [content]);
+return <div dangerouslySetInnerHTML={{ __html: html }} />;
+```
+
+`marked` 默认 **不** sanitize（自 v5 起完全交给调用方）。
+正确写法是上 DOMPurify：
+
+```tsx
+import DOMPurify from "isomorphic-dompurify";
+const safe = DOMPurify.sanitize(marked.parse(content));
+return <div dangerouslySetInnerHTML={{ __html: safe }} />;
+```
+
+**记住：把 `marked.parse` 的返回值直接传给 `dangerouslySetInnerHTML` 等同于把用户输入直接 innerHTML。**
+
+## 顺便说
+
+我在首页里塞了一个看起来像 XSS 漏出来的 `<script>` 片段，那个是纯字符串，不会执行 — 那是个梗，不是漏洞。
