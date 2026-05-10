@@ -6,7 +6,9 @@
     "dev": "next dev",
     "prebuild": "node scripts/build-search-index.mjs",
     "build": "next build",
+    "postbuild": "node scripts/postbuild-mirror-index.mjs",
     "start": "next start",
+    "preview": "npx --yes serve out -p 8081 --no-clipboard",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write ."

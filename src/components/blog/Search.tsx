@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { type Locale, localeHref } from "@/lib/i18n";
 
 type IndexEntry = {
   slug: string;
@@ -13,13 +14,27 @@ type IndexEntry = {
   body: string; // lowercased plaintext extract
 };
 
+type SearchStrings = {
+  placeholder: string;
+  loading: string;
+  no_results: string;
+};
+
 /**
  * Static-index search. The index is generated at build time (see
- * `scripts/build-search-index.ts`) and lives at /search-index.json.
+ * `scripts/build-search-index.mjs`) and lives at /search-index.json.
  *
  * We fetch it lazily on first focus so the homepage doesn't pay the cost.
+ * Locale-aware: result links are prefixed with the active locale, strings
+ * are passed in from the server parent.
  */
-export function Search() {
+export function Search({
+  lang,
+  strings,
+}: {
+  lang: Locale;
+  strings: SearchStrings;
+}) {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
   const [index, setIndex] = useState<IndexEntry[] | null>(null);
@@ -58,7 +73,7 @@ export function Search() {
     <div className="relative">
       <input
         type="search"
-        placeholder="搜索文章…"
+        placeholder={strings.placeholder}
         value={q}
         onFocus={() => setOpen(true)}
         onChange={(e) => {
@@ -71,15 +86,19 @@ export function Search() {
       {open && q.trim() ? (
         <div className="absolute left-0 right-0 top-full z-20 mt-1 max-h-80 overflow-auto rounded-md border border-[var(--rule)] bg-[var(--bg)] shadow-lg">
           {!index ? (
-            <div className="p-3 text-sm text-[var(--muted)]">加载索引中…</div>
+            <div className="p-3 text-sm text-[var(--muted)]">
+              {strings.loading}
+            </div>
           ) : results.length === 0 ? (
-            <div className="p-3 text-sm text-[var(--muted)]">没有匹配结果</div>
+            <div className="p-3 text-sm text-[var(--muted)]">
+              {strings.no_results}
+            </div>
           ) : (
             <ul>
               {results.map((r) => (
                 <li key={r.slug}>
                   <Link
-                    href={`/blog/${r.slug}`}
+                    href={localeHref(lang, `/blog/${r.slug}`)}
                     className="block px-3 py-2 text-sm no-underline hover:bg-[color-mix(in_srgb,var(--fg)_8%,transparent)]"
                   >
                     <div className="font-medium">{r.title}</div>

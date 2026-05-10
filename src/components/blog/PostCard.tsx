@@ -1,25 +1,21 @@
 import Link from "next/link";
 import type { Post } from "@/lib/posts";
 import { formatDate } from "@/lib/format";
+import { getDictionary } from "@/lib/dict";
+import { type Locale, intlLocale, localeHref } from "@/lib/i18n";
 
 /**
- * Modern PostCard — white card on cream canvas.
- *
- *   - 12px radius, whisper-soft 2-layer shadow (Starbucks default card)
- *   - 24px padding
- *   - Title in Starbucks Green (weight 600, -0.012em)
- *   - Body excerpt in 87% black, line-height 1.6
- *   - Tags as outline-Green-Accent 50px chips
- *   - Hover: lift 2px + slightly bigger ambient shadow
+ * Modern PostCard — white card on cream canvas, locale-aware links.
  */
-export function PostCard({ post }: { post: Post }) {
+export function PostCard({ post, lang }: { post: Post; lang: Locale }) {
+  const d = getDictionary(lang);
   const { slug, frontmatter, readingTimeMinutes } = post;
   const tags = frontmatter.tags?.slice(0, 3) ?? [];
   const category = frontmatter.category;
 
   return (
     <article className="modern-card group p-6">
-      <Link href={`/blog/${slug}`} className="block">
+      <Link href={localeHref(lang, `/blog/${slug}`)} className="block">
         {category ? (
           <p
             className="mb-2 text-[12px] font-semibold uppercase"
@@ -59,16 +55,16 @@ export function PostCard({ post }: { post: Post }) {
               letterSpacing: "var(--tracking-tight)",
             }}
           >
-            {formatDate(frontmatter.date)}
+            {formatDate(frontmatter.date, intlLocale[lang])}
             <span className="mx-2 opacity-50">·</span>
-            {readingTimeMinutes} min read
+            {readingTimeMinutes} {d.blog.min_read}
           </p>
           <span
             className="text-[14px] font-semibold opacity-0 transition-opacity group-hover:opacity-100"
             style={{ color: "var(--color-accent-green)" }}
             aria-hidden="true"
           >
-            Read →
+            {d.blog.read_arrow}
           </span>
         </div>
       </Link>
@@ -81,7 +77,7 @@ export function PostCard({ post }: { post: Post }) {
           {tags.map((tag) => (
             <Link
               key={tag}
-              href={`/tags/${encodeURIComponent(tag)}`}
+              href={localeHref(lang, `/tags/${encodeURIComponent(tag)}`)}
               className="modern-chip"
             >
               {tag}

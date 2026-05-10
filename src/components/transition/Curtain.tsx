@@ -3,27 +3,14 @@
 /**
  * Curtain — the 1999 → 2026 transition.
  *
- * Visual sequence (~1.1s, all CSS-driven):
+ * Visual sequence (~1.1s, all CSS-driven). See the original component
+ * comment for the choreography; nothing about the visual side changed.
  *
- *   0–200ms   CRT collapse: a 1px phosphor-green horizontal line erupts
- *             across the viewport (scaleX 0 → 1).
- *   200–350ms The line stretches vertically into a green flash, then
- *             snaps back to a hairline (the classic "TV switching off"
- *             gesture, in reverse — turning *on* into the future).
- *   350–600ms A radial green flash blooms and fades; underneath, the
- *             cream canvas (#f2f0eb) cross-fades up from black.
- *   600–1100ms Curtain fades out, revealing the modern blog page,
- *             which has its own .modern-reveal entry animation
- *             (translateY + blur clear).
- *
- * The component is rendered globally in the root layout but only
- * activates when a link with `data-curtain` is clicked while the
- * current route starts with `/` (retro home) and the destination
- * starts with `/blog` (or any non-retro path).
- *
- * It also activates when navigating *back* from blog → home, in
- * reverse (cream collapses to a green hairline, then flashes black —
- * "shutting down to 1999").
+ * What DID change with i18n: the "modern" / "retro" path detection used
+ * to do `pathname.startsWith("/blog")` etc. With locale prefixes, we now
+ * strip the locale first via `parsePath` and apply the same checks to
+ * the locale-stripped suffix. That keeps the curtain firing for
+ * `/zh-Hans/` ↔ `/zh-Hans/blog/` exactly the same as `/` ↔ `/blog/`.
  *
  * `prefers-reduced-motion` collapses the whole thing to a 200ms
  * cross-fade.
@@ -31,8 +18,19 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState, useCallback } from "react";
+import { defaultLocale, parsePath } from "@/lib/i18n";
 
 type Direction = "to-modern" | "to-retro" | null;
+
+const MODERN_PREFIXES = ["/blog", "/posts", "/tags", "/categories", "/archive"];
+
+function isModernPath(rest: string): boolean {
+  return MODERN_PREFIXES.some((p) => rest === p || rest.startsWith(`${p}/`));
+}
+
+function isRetroPath(rest: string): boolean {
+  return rest === "/" || rest === "";
+}
 
 export function Curtain() {
   const router = useRouter();
@@ -40,27 +38,27 @@ export function Curtain() {
   const [direction, setDirection] = useState<Direction>(null);
   const armedRef = useRef(false);
 
-  const isRetro = pathname === "/" || pathname === "";
-  const isModern = pathname?.startsWith("/blog") ||
-                   pathname?.startsWith("/posts") ||
-                   pathname?.startsWith("/tags") ||
-                   pathname?.startsWith("/categories") ||
-                   pathname?.startsWith("/archive");
+  const here = parsePath(pathname ?? "/");
+  const isRetro = isRetroPath(here.rest);
+  const isModern = isModernPath(here.rest);
 
-  const startTransition = useCallback((href: string, dir: Direction) => {
-    if (armedRef.current) return;
-    armedRef.current = true;
-    setDirection(dir);
-    // Navigate at the midpoint so DOM swap happens behind the curtain.
-    window.setTimeout(() => {
-      router.push(href);
-    }, 480);
-    // Tear down the curtain after the full sequence.
-    window.setTimeout(() => {
-      armedRef.current = false;
-      setDirection(null);
-    }, 1200);
-  }, [router]);
+  const startTransition = useCallback(
+    (href: string, dir: Direction) => {
+      if (armedRef.current) return;
+      armedRef.current = true;
+      setDirection(dir);
+      // Navigate at the midpoint so DOM swap happens behind the curtain.
+      window.setTimeout(() => {
+        router.push(href);
+      }, 480);
+      // Tear down the curtain after the full sequence.
+      window.setTimeout(() => {
+        armedRef.current = false;
+        setDirection(null);
+      }, 1200);
+    },
+    [router],
+  );
 
   useEffect(() => {
     function onClick(e: MouseEvent) {
@@ -81,15 +79,18 @@ export function Curtain() {
       if (href.startsWith("#")) return;
       if (href.startsWith("http") || href.startsWith("mailto")) return;
 
-      const goingToModern =
-        href.startsWith("/blog") ||
-        href.startsWith("/posts") ||
-        href.startsWith("/tags") ||
-        href.startsWith("/categories") ||
-        href.startsWith("/archive");
-      const goingToRetro = href === "/" || href === "";
+      // The link belongs to which locale tree? Strip its prefix and
+      // reuse the same path classifiers we use for `pathname`.
+      const target_ = parsePath(href);
 
-      // Only fire when we cross the skin boundary.
+      // Cross-locale clicks (the language switcher) should NOT trigger
+      // the curtain — they're full reloads handled by the browser.
+      if (target_.lang !== here.lang) return;
+
+      const goingToModern = isModernPath(target_.rest);
+      const goingToRetro = isRetroPath(target_.rest);
+
+      // Only fire when we cross the skin boundary within the same locale.
       if (isRetro && goingToModern) {
         e.preventDefault();
         startTransition(href, "to-modern");
@@ -100,7 +101,12 @@ export function Curtain() {
     }
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);
-  }, [isRetro, isModern, startTransition]);
+  }, [isRetro, isModern, here.lang, startTransition]);
+
+  // Reference defaultLocale to keep the import meaningful — the curtain
+  // logic is locale-agnostic; defaultLocale is reachable here for future
+  // tweaks (e.g. cross-locale curtain colours).
+  void defaultLocale;
 
   if (!direction) return null;
 

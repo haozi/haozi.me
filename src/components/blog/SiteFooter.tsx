@@ -1,15 +1,19 @@
 import Link from "next/link";
-import { site } from "@/lib/site";
+import { getDictionary } from "@/lib/dict";
+import { type Locale, localeHref } from "@/lib/i18n";
+import { siteCore } from "@/lib/site";
 
 /**
- * Modern blog footer — House Green band (espresso bookend).
+ * Modern blog footer — House Green band (espresso bookend), locale-aware.
  *
  *  - Background: House Green (#1E3932)
  *  - Text: white primary, rgba(255,255,255,0.70) secondary
  *  - Generous 56–64px vertical padding (Starbucks rhythm)
  */
-export function SiteFooter() {
+export function SiteFooter({ lang }: { lang: Locale }) {
+  const d = getDictionary(lang);
   const year = new Date().getFullYear();
+  const rssHref = lang === "en" ? "/rss.xml" : `/${lang}/rss.xml`;
   return (
     <footer
       className="mt-24"
@@ -25,17 +29,17 @@ export function SiteFooter() {
             className="text-[24px] font-semibold leading-tight"
             style={{ letterSpacing: "-0.012em" }}
           >
-            {site.shortName ?? site.name}
+            {d.site.shortName}
           </p>
           <p
             className="mt-3 text-[15px] leading-[1.7]"
             style={{ color: "var(--color-text-on-dark-soft)" }}
           >
-            {site.description}
+            {d.site.description}
           </p>
           <div className="mt-6 flex items-center gap-3">
             <Link
-              href="/"
+              href={localeHref(lang, "/")}
               className="modern-pill"
               style={{
                 background: "transparent",
@@ -43,10 +47,10 @@ export function SiteFooter() {
                 border: "1px solid rgba(255,255,255,0.6)",
               }}
             >
-              ← 回到 1999
+              {d.blog.home_pill_long}
             </Link>
             <a
-              href="/rss.xml"
+              href={rssHref}
               className="modern-pill"
               style={{
                 background: "#fff",
@@ -54,23 +58,33 @@ export function SiteFooter() {
                 border: "1px solid #fff",
               }}
             >
-              RSS
+              {d.blog.rss}
             </a>
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-x-10 gap-y-3 text-[14px] sm:grid-cols-3">
-          <FooterCol title="Read">
-            <FooterLink href="/blog" label="Blog" />
-            <FooterLink href="/archive" label="Archive" />
+          <FooterCol title={d.blog.cols.read}>
+            <FooterLink href={localeHref(lang, "/blog")} label={d.blog.blog} />
+            <FooterLink
+              href={localeHref(lang, "/archive")}
+              label={d.blog.archive}
+            />
           </FooterCol>
-          <FooterCol title="Browse">
-            <FooterLink href="/tags" label="Tags" />
-            <FooterLink href="/categories" label="Categories" />
+          <FooterCol title={d.blog.cols.browse}>
+            <FooterLink href={localeHref(lang, "/tags")} label={d.blog.tags} />
+            <FooterLink
+              href={localeHref(lang, "/categories")}
+              label={d.blog.categories}
+            />
           </FooterCol>
-          <FooterCol title="Author">
-            <FooterLink href={site.author?.url ?? "#"} label={site.author?.name ?? "Author"} external />
-            <FooterLink href="/rss.xml" label="RSS Feed" external />
+          <FooterCol title={d.blog.cols.author}>
+            <FooterLink
+              href={siteCore.author.url}
+              label={siteCore.author.name}
+              external
+            />
+            <FooterLink href={rssHref} label={d.blog.rss_feed} external />
           </FooterCol>
         </div>
       </div>
@@ -83,8 +97,10 @@ export function SiteFooter() {
           className="mx-auto flex max-w-[1100px] flex-col gap-2 px-4 py-6 text-[13px] sm:flex-row sm:items-center sm:justify-between sm:px-6"
           style={{ color: "var(--color-text-on-dark-soft)" }}
         >
-          <span>© 1999–{year} {site.shortName ?? site.name}. All rights reserved.</span>
-          <span>Built with Next.js · MDX · Inter — designed in 2026.</span>
+          <span>
+            © 1999–{year} {d.site.shortName}. All rights reserved.
+          </span>
+          <span>{d.blog.footer_built}</span>
         </div>
       </div>
     </footer>
