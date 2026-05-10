@@ -88,8 +88,14 @@ export function SlowCanvasPortrait({
       const reveal = (yPx: number) => {
         const fresh = ctx.createImageData(imgW, imgH);
         const cutoff = imgW * yPx * 4;
-        // eslint-disable-next-line no-empty
-        for (let c = 0; ((fresh.data[c] = fullData.data[c]), c < cutoff); c++) {}
+        // Byte-copy semantics ported from haozi.me's original — copy the
+        // top-`yPx` rows of RGBA bytes into a fresh ImageData. The original
+        // squeezed the assignment into the for-condition (and required a
+        // no-empty disable); pulled out into the body for lint cleanliness
+        // and zero behaviour change.
+        for (let c = 0; c < cutoff; c++) {
+          fresh.data[c] = fullData.data[c];
+        }
         ctx.putImageData(fresh, 0, 0);
       };
 
@@ -134,11 +140,18 @@ export function SlowCanvasPortrait({
 
   return (
     <figure
-      className={`retro-portrait${finished ? " retro-portrait-done" : ""}`}
+      // `retro-portrait-done` survives as a class hook because the
+      // finished-loading badge is a `::before` pseudo-element rendered
+      // by the inline retro stylesheet in `src/app/page.tsx` — pseudo
+      // elements aren't expressible via Tailwind utilities.
+      className={
+        "relative block text-center my-3" +
+        (finished ? " retro-portrait-done" : "")
+      }
     >
       <canvas
         ref={canvasRef}
-        className="low-img"
+        className="border-4 border-[#0000ff] cursor-pointer max-w-full h-auto"
         width={1080}
         height={1440}
         style={{ width: `${width}px`, height: `${height}px` }}

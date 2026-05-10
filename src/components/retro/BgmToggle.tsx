@@ -49,29 +49,50 @@ export function BgmToggle({ src = "/audio/bg.mp3" }: { src?: string }) {
     // First-interaction autoplay — try `play()` immediately, swallow any
     // NotAllowedError, and re-attempt on the very next user gesture
     // anywhere in the document.
-    let onCanPlay: (() => void) | null = null;
+    //
+    // BUG-FIX: previously the click listener was removed when the audio
+    // fired `canplay`. But `canplay` fires when the file is loaded —
+    // typically *before* any user interaction — so the listener got
+    // pulled before the user's first click could ever land. Result:
+    // clicking the XSS modal (or anywhere else) never triggered playback.
+    //
+    // Correct semantics: keep listening until `play()` actually resolves
+    // successfully. Only then can we be sure autoplay was honoured and
+    // it's safe to stop listening.
     let firstInteraction: ((e: Event) => void) | null = null;
 
-    const tryPlay = () => audio.play().catch(() => {});
+    const removeGestureListeners = () => {
+      if (!firstInteraction) return;
+      document.removeEventListener("click", firstInteraction, true);
+      document.removeEventListener("touchstart", firstInteraction, true);
+      document.removeEventListener("keydown", firstInteraction, true);
+      firstInteraction = null;
+    };
+
+    const tryPlay = () =>
+      audio
+        .play()
+        .then(() => {
+          // success → safe to drop the gesture listeners
+          removeGestureListeners();
+        })
+        .catch(() => {
+          /* autoplay denied; keep listeners armed for next gesture */
+        });
+
+    // Probe once at mount in case autoplay is permitted (e.g. media
+    // session, prior interaction); harmless if blocked.
     tryPlay();
 
     firstInteraction = () => {
       tryPlay();
     };
-    onCanPlay = () => {
-      // mirror the source's behaviour: once the audio is ready and we
-      // know we can play, drop the global click listener so we don't
-      // hijack later clicks.
-      if (firstInteraction) {
-        document.removeEventListener("click", firstInteraction);
-        document.removeEventListener("touchstart", firstInteraction);
-        document.removeEventListener("keydown", firstInteraction);
-      }
-    };
-    audio.addEventListener("canplay", onCanPlay);
-    document.addEventListener("click", firstInteraction);
-    document.addEventListener("touchstart", firstInteraction);
-    document.addEventListener("keydown", firstInteraction);
+    // capture-phase listener so it runs before any click handler that
+    // might call stopPropagation() on a button further down the tree
+    // (e.g. inside the XSS modal).
+    document.addEventListener("click", firstInteraction, true);
+    document.addEventListener("touchstart", firstInteraction, true);
+    document.addEventListener("keydown", firstInteraction, true);
 
     // Persist current playhead every second so a refresh feels seamless.
     const persistTimer = window.setInterval(() => {
@@ -99,12 +120,10 @@ export function BgmToggle({ src = "/audio/bg.mp3" }: { src?: string }) {
       window.clearInterval(persistTimer);
       audio.removeEventListener("play", onPlay);
       audio.removeEventListener("pause", onPause);
-      if (onCanPlay) audio.removeEventListener("canplay", onCanPlay);
-      if (firstInteraction) {
-        document.removeEventListener("click", firstInteraction);
-        document.removeEventListener("touchstart", firstInteraction);
-        document.removeEventListener("keydown", firstInteraction);
-      }
+      // Capture-phase listeners must be removed with the same `true` flag
+      // they were added with — and `removeGestureListeners()` already
+      // does exactly that, plus the null-safety check.
+      removeGestureListeners();
       window.removeEventListener("beforeunload", flush);
       window.removeEventListener("pagehide", flush);
       audio.pause();
@@ -123,8 +142,19 @@ export function BgmToggle({ src = "/audio/bg.mp3" }: { src?: string }) {
   }
 
   return (
-    <span className="retro-bgm">
-      <button type="button" onClick={toggle} aria-pressed={playing}>
+    <span className="fixed left-2 bottom-2 z-30 [font-family:'Songti_SC',SimSun,serif]">
+      <button
+        type="button"
+        onClick={toggle}
+        aria-pressed={playing}
+        className={
+          "px-3 py-0.5 text-xs text-black bg-[#c0c0c0] cursor-pointer [font:inherit] " +
+          "border border-t-white border-l-white border-r-black border-b-black " +
+          "[box-shadow:inset_1px_1px_0_#dfdfdf,inset_-1px_-1px_0_#808080] " +
+          "active:border-t-black active:border-l-black active:border-r-white active:border-b-white " +
+          "active:[box-shadow:inset_1px_1px_0_#808080,inset_-1px_-1px_0_#dfdfdf]"
+        }
+      >
         {playing ? "⏸ 暂停 BGM" : "▶ 播放 BGM"}
       </button>
       <audio ref={audioRef} src={src} loop preload="auto" />

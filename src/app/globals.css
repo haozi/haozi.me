@@ -299,29 +299,18 @@ body {
 
 /* ────────────────────────────────────────────────────────────────
    Retro homepage isolation
-   .retro-root opts in to the dark 90s CRT skin.
-   ──────────────────────────────────────────────────────────────── */
-.retro-root {
-  font-family: var(--font-retro);
-  color: #c8ffd1;
-  background: #050608;
-  line-height: 1.4;
-  letter-spacing: 0;
-}
+   The retro skin is fully owned by `src/app/page.tsx` — every visual
+   style is either a Tailwind utility on the JSX or, for browser pseudo
+   elements no utility can address (custom scrollbars, the portrait-
+   finished badge, cursor cascade, @keyframes), an inline <style> block
+   declared at the top of `page.tsx` (`RETRO_INLINE_CSS`).
 
-.retro-root a {
-  color: #33ff66;
-  text-decoration: underline;
-  text-shadow: 0 0 4px rgba(51, 255, 102, 0.6);
-}
-.retro-root a:visited {
-  color: #c388ff;
-  text-shadow: 0 0 4px rgba(195, 136, 255, 0.4);
-}
-.retro-root a:hover {
-  color: #ffb000;
-  text-shadow: 0 0 6px rgba(255, 176, 0, 0.7);
-}
+   globals.css intentionally defines NOTHING for `.retro-root` — any
+   link colour, background, or text-shadow here would silently fight
+   the Win98/2000s aesthetic over there. If you need to tweak the
+   retro look, edit `src/app/page.tsx`. The old `src/styles/retro.css`
+   has been deleted.
+   ──────────────────────────────────────────────────────────────── */
 
 /* ────────────────────────────────────────────────────────────────
    Curtain transition (1999 → 2026)
