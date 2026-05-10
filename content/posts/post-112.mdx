@@ -1,0 +1,63 @@
+---
+title: "纯CSS打造斜边1-入门"
+date: "2010-02-20"
+category: "前端开发"
+archived: true
+sourceUrl: "http://haozi.cc/post/css-triangle.html"
+---
+
+纯css可以做出简单的三角形，这个在实战中有时还是很有用的，毕竟用图片会减慢速度  
+原理：当border很粗时，两条交叉边会形成一条斜线  
+如：
+
+```
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+```
+
+```
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+.abc{ border-top:80px solid #F00;border-left:80px solid #00F}
+</style>
+</head>
+ 
+<body>
+<div class="abc"></div>
+</body>
+</html>
+```
+
+好了，明白了这一点后我们就可以开始做三角形了，原理是将层的三条边的boder定义成相同的背景色，三角的屁股所在边定义成前景色
+
+```
+1
+2
+3
+4
+```
+
+```
+.abc{ border-top:80px solid #FFF;border-left:80px solid #F00;
+ border-bottom:80px solid #FFF;border-right:80px solid #FFF}
+或者简写成
+.abc{ border:80px solid #FFF;border-left:80px solid #F00;}
+```
+
+好了，先写到这儿吧，明天我将继续讲一些高级应用，用斜边打造更多漂亮东东

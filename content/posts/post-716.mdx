@@ -1,0 +1,14 @@
+---
+title: "axure导出chm文件出现乱码的解决方法"
+date: "2011-09-01"
+category: other
+archived: true
+sourceUrl: "http://haozi.me/post/716.html"
+---
+
+1 将生成html文档目录下的后缀为hhc的文件,通过文本文件打开,选择ascii编码的格式另存；  
+2 将同目录下的hhp文件,用文本文件打开.将Language键值改为:中文(RPC)；  
+3下载并安装[Htmlhelp.exe](http://download.microsoft.com/download/0/A/9/0A939EF6-E31C-430F-A3DF-DFAE7960D564/htmlhelp.exe "htmlhelp.exe")  
+4 打开cmd窗口,然后定位到C:Program FilesHTML Help Workshophhc.exe. （默认安装路径）  
+hhc.exe命令后带的参数是:hhp文件的路径.  
+生成的chm文件,导航页的乱码可以解决.

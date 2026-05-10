@@ -1,0 +1,425 @@
+---
+title: "Web 设计与开发终极资源大全"
+date: "2010-04-11"
+category: "Web Design"
+archived: true
+sourceUrl: "http://haozi.me/blog/archives/89"
+---
+
+[\[Translate\]](&lt;javascript:show_translate_popup\('en', 'post', 89\);>)![](https://web.archive.org/web/20100419143115im_/http://www.haozi.me/blog/wp-content/plugins/google-ajax-translation/transparent.gif)
+
+---
+
+Web 技术突飞猛进，Web 设计与开发者们可以选择的工具越来越多，Web 开发者的技巧不再只限于 HTML 和 服务器端编程，还需要精通各种第三方资源，这些第三方资源有时候比你的项目更复杂，更专业，你无法自己实现一切，借助一些 Web API，你可以很方便地将大量优秀的第三方资源集成到自己的站点。本文全面搜集 Web 开发中可能用到的各种第三方资源。
+
+### 1\. 函数与类库
+
+#### A. CAPTCHA
+
+CAPTCHA 用来防止恶意表单发布，以下 CAPTCHA 系统可以轻松集成到你的程序中：
+
+[reCAPTCHA](http://recaptcha.net/)
+
+这是目前最流行的 CAPTCHA 机制，该机制同时是一个古籍数字化工程的一部分，用户在验证的同时，也帮助辨认一些不够清晰的估计扫描。reCAPTCHA 还有一个 [Perl 模块](http://search.cpan.org/dist/Captcha-reCAPTCHA/lib/Captcha/reCAPTCHA.pm) 实现该功能。
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p1.gif)
+
+[Securimage](http://www.phpcaptcha.org/)
+
+这个一个免费的，开源 PHP CAPTCHA 脚本。
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p2.gif)
+
+[freeCap](http://www.puremango.co.uk/2005/04/php_captcha_script_113/)
+
+基于 GPL 协议的 CAPTCHA 脚本
+
+[HN CAPTCHA](http://www.phpclasses.org/browse/package/1569.html)
+
+PHP CAPTCHA 脚本，基于 LGPL 协议
+
+#### B. 日期处理
+
+日期操作并不轻松，尽管 PHP 和 Perl 内置了大量此类函数，但未必满足你的需要，以下是几个很好用的日期函数：
+
+-   [PEAR Date](http://pear.php.net/package/Date)  
+    通 用 PHP 日期类库
+-   [Date Class](http://www.phpclasses.org/browse/package/1649.html)  
+    PHP 类库，计算及其增减与日期差异
+-   [Date manipulation in PHP](http://www.phpbuilder.com/columns/akent20000610.php3)  
+    PHPBuilder.com 上的一个教程，讲解如何进行日期处理
+-   [Date::Calc Perl Module](http://search.cpan.org/dist/Date-Calc/lib/Date/Calc.pod)  
+    Perl模块，用于格列高利历法的日期计算
+
+#### C. 图形处理
+
+图片缩放，添加水印等：
+
+-   [Image Manipulation Class](http://www.phpclasses.org/browse/package/3294.html)  
+    在 PHP 中缩放，反转，旋转图片
+-   [PHP Thumbnailer](http://phpthumb.gxdlabs.com/)  
+    一 个轻量级图片缩略图工具
+-   [PHP GD](http://uk.php.net/manual/en/book.image.php)  
+    一个强大的图片处理类库
+-   [Perl GD](http://search.cpan.org/dist/GD/)  
+    Perl 图片处理模块
+
+#### D. 表单验证
+
+表单验证不仅保证用户填写的准确，还可以防止攻击：
+
+-   [validaForms](http://www.phpclasses.org/browse/package/1698.html)  
+    一个 PHP 表单验证类库
+-   [User Input Validation Class](http://www.phpclasses.org/browse/package/3632.html)  
+    一个 PHP 表单验证基础库
+-   [Validate Form Fields Script](http://www.finalwebsites.com/snippets.php?id=15)  
+    另一个 PHP 表单验证基础库
+-   [WWW::FieldValidator](http://search.cpan.org/~shlomif/WWW-Form-1.18/lib/WWW/FieldValidator.pm)  
+    一个简单的 Perl 表单验证模块
+
+#### E. 密码验证
+
+验证密码的复杂度
+
+-   [Strength Test](http://rumkin.com/tools/password/passchk.php)  
+    一个 PHP 密码强度验证函数
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p3.gif)
+
+-   [Password Checker](http://www.phpclasses.org/browse/package/2966.html)  
+    一个 PHP 类，用来验证密码强度
+-   [Data::Password::Check](http://search.cpan.org/~chisel/Data-Password-Check-0.08/lib/Data/Password/Check.pm)  
+    Perl 模块，用来验证密码强度
+
+### 2\. Ajax 与 JavaScript
+
+#### A. 自动输入建议
+
+最早最成熟的自动输入建议应该是 Google 搜索条。
+
+-   [Facebook-Style Autosuggest](http://devthought.com/blog/projects-news/2008/01/textboxlist-meets-autocompletion/)  
+    Facebook 风格的自动输入建议
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p4.gif)
+
+-   [Autosuggest / Autocomplete with Ajax](http://www.brandspankingnew.net/specials/ajax_autosuggest/ajax_autosuggest_autocomplete.html)  
+    基于 XML 和 JSON 数据源的自动输入建议工具
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p5.gif)
+
+-   [Ajax.Autocompleter](http://wiki.github.com/madrobby/scriptaculous/ajax-autocompleter)  
+    基于 script.aculo.us 的输入自动完成工具
+-   [Adobe Labs Spry Auto Suggest](http://labs.adobe.com/technologies/spry/articles/data_api/apis/autosuggest.html)  
+    由 Adobe 实验室提供的自动输入建议工具
+-   [Google Suggest Style Filter](http://mattberseth.com/blog/2007/12/creating_a_google_suggest_styl.html)  
+    Google Suggest 风格的自动输入建议
+
+#### B. 日历
+
+在输入日期的地方，使用非常直观的日历面板
+
+-   [Vista-Like Ajax Calendar](http://dev.base86.com/scripts/vista-like_ajax_calendar_version_2.html)  
+    基于 Mootools，Vista 风格
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p6.gif)
+
+-   [JS Calendar in DHTML Suite](http://www.dhtmlgoodies.com/index.html?page=calendarScripts)  
+    基于 JavaScript ，支持多日历连接
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p7.gif)
+
+-   [AJAX Calendar with PHP and MySQL](http://www.opencrypt.com/blog.php?a=29)  
+    一个开源的 AJAX 日历控件
+-   [Super AJAX Calendar](http://www.bmgadg.com/super_ajax_calendar.php)  
+    一个基于 PHP 和 MySQL 的日历控件
+-   [dhtmlxScheduler](http://www.dhtmlx.com/docs/products/dhtmlxScheduler/)  
+    一个强大的事务日历
+
+#### C. 滑动条
+
+滑动条可以更直观地进行数值的输入和选择
+
+-   [Accessible Slider](http://www.filamentgroup.com/lab/developing_an_accessible_slider/)  
+    一个设计出众的滑动条控件
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p8.gif)
+
+-   [Phatfusion Slider](http://www.phatfusion.net/slider/)  
+    一个基于 AJAX 的滑动条
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p9.gif)
+
+-   [AJAXEngine Sliders](http://www.mathertel.de/AJAXEngine/S03_AJAXControls/ConnectionsTestPage.aspx)  
+    AJAXEngine 项目中的滑动条
+-   [Slider Using PHP, Ajax And Javascript](http://roshanbh.com.np/2008/01/slider-using-php-ajax-and-javascript.html)  
+    一个简单实用的 AJAX 滑动条
+-   [WebFX Slider](http://webfx.eae.net/dhtml/slider/slider.html)  
+    基于 Apache 软件许可 2.0 的滑动条控件
+
+#### D. 表格
+
+Ajax 表格，支持排序等功能
+
+-   [Grid3](http://www.extjs.com/playpen/ext-2.0/examples/grid/grid3.html)  
+    作为 Ext JS 库一部分的表格控件
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p10.gif)
+
+-   [dhtmlxGrid](http://dhtmlx.com/docs/products/dhtmlxGrid/)  
+    支 持列排序和搜索
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p11.gif)
+
+-   [Unobtrusive Table Sort Script](http://www.frequency-decoder.com/2006/09/16/unobtrusive-table-sort-script-revisited)  
+    支持多列排序
+-   [AJAX Data Listings Engine](http://www.opencrypt.com/blog.php?a=22)  
+    基于 PHP 和 MySQL
+-   [TableKit](http://www.millstream.com.au/upload/code/tablekit/)  
+    基于 Prototype JavaScript 框架
+
+#### E. 可拖动内容
+
+Ajax-based draggable content features can be very useful when used appropriately. Such tools enable users to reorganize a page to suit their needs, and can also serve as a basis for an interactive feature like a shopping basket.
+
+-   [Draggable Content Scripts](http://www.dhtmlgoodies.com/index.html?page=dragDrop)  
+    dhtmlgoodies.com 推出多种可拖放内容脚本，以及图片裁剪工具
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p12.gif)
+
+-   [DragResize](http://www.twinhelix.com/javascript/dragresize/)  
+    支持尺寸修改功能
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p13.gif)
+
+-   [Drag Drop Sortable Lists](http://tool-man.org/examples/sorting.html)  
+    位置可调列表控件
+-   [Scriptaculous Draggable](http://wiki.github.com/madrobby/scriptaculous/draggable)  
+    script.aculo.us 框架的一部分
+
+#### F. 图片放大
+
+类似 JavaScript 灯箱的图片放大显示控件
+
+-   [Highslide JS](http://highslide.com/)  
+    在 Modal 窗口显示放大尺寸的图片
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p14.gif)
+
+-   [FancyZoom](http://cabel.name/2008/02/fancyzoom-10.html)  
+    图 片缩放显示
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p15.gif)
+
+-   [TJPzoom 3](http://valid.tjp.hu/tjpzoom/)  
+    图 片放大工具
+-   [Ajax Script To Scale Images](http://www.xul.fr/ajax/ajax-image-gallery.html)  
+    显示缩略图的放大尺寸版
+
+#### G. 相册和幻灯
+
+用相册或幻灯方式显示系列图片
+
+-   [minishowcase](http://minishowcase.net/)  
+    基 于 AJAX 和 JSON 的相册控件
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p16.gif)
+
+-   [Animated JavaScript Slideshow](http://www.leigeber.com/2008/12/javascript-slideshow/)  
+    轻量级 JavaScript 图片幻灯效果，支持运动字幕
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p17.gif)
+
+-   [Hoverbox Image Gallery](http://sonspring.com/journal/hoverbox-image-gallery)  
+    简单的相册，鼠标在缩略图上移动时显示原图
+-   [TripTracker](http://slideshow.triptracker.net/)  
+    以 幻灯方式显示图片
+-   [Agile Gallery (Ajax Version)](http://www.agilegallery.com/ajax-photo-gallery.html)  
+    AJAX 相册工具
+
+#### H. 打分工具
+
+非常直观的打分控件
+
+-   [Starbox](http://www.nickstakenburg.com/projects/starbox/)  
+    基于 Prototype JavaScript 框架
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p18.gif)
+
+-   [Unobtrusive AJAX Star Rating Bar](http://masugadesign.com/the-lab/scripts/unobtrusive-ajax-star-rating-bar/)  
+    基于 PHP 和 AJAX
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p19.gif)
+
+-   [CSS: Star Rater Ajax Version](http://www.yvoschaap.com/index.php/weblog/css_star_rater_ajax_version/)  
+    基于 AJAX
+
+#### I. 取色板
+
+用于取色
+
+-   [jscolor](http://jscolor.com/)  
+    简单的弹出式取色板
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p20.gif)
+
+-   [JavaScript Color Picker](http://www.nogray.com/color_picker.php)  
+    支持 RGB，HSL，以及16进制图片色值
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p21.gif)
+
+-   [Tigra Color Picker](http://www.softcomplex.com/products/tigra_color_picker/demo1.html)  
+    非常简单的取色板
+-   [Photoshop-like JavaScript Color Picker](http://johndyer.name/post/2007/09/26/PhotoShop-like-JavaScript-Color-Picker.aspx)  
+    支持色调和饱和度选项
+-   [ColorPicker jQuery Plugin](http://www.eyecon.ro/colorpicker/)  
+    基于 jQuery
+-   [DHTML Color Picker](http://nofunc.org/DHTML_Color_Picker/)  
+    基于 DHTML
+
+#### J. 进度条
+
+-   [jsProgressBarHandler](http://www.bram.us/projects/js_bramus/jsprogressbarhandler/)  
+    非常灵活
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p22.gif)
+
+-   [YUI Loading Panel Widget](http://thecodecentral.com/2008/01/17/a-yui-loading-panel-widget)  
+    非常漂亮.
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p23.gif)
+
+-   [Simple Javascript Progress Bar with CSS](http://www.webappers.com/2007/07/31/webappers-simple-ajax-progress-bar-with-css/)  
+    简单实用.
+-   [Uploadify](http://www.uploadify.com/)  
+    基于 jQuery.
+
+Web 技术突飞猛进，Web 设计与开发者们可以选择的工具越来越多，Web 开发者的技巧不再只限于 HTML 和 服务器端编程，还需要精通各种第三方资源，这些第三方资源有时候比你的项目更复杂，更专业，你无法自己实现一切，借助一些 Web API，你可以很方便地将大量优秀的第三方资源集成到自己的站点。本文是第二部分。
+
+### 3\. APIs
+
+以下 API 可以将很多现成的功能集成到你的站点：
+
+-   [Alexa Top Sites](http://aws.amazon.com/alexatopsites/ "Alexa Top Sites")  
+    这 个 API 按 Alexa 排名返回网站列表
+-   [bit.ly API](http://code.google.com/p/bitly-api/wiki/ApiDocumentation "bit.ly API")  
+    bit.ly URL 缩短 API
+-   [Blinksale API](http://www.blinksale.com/api "Blinksale API")  
+    访问 Blinksale 数据。
+-   [FoXRate](http://foxrate.org/ "FoXRate")  
+    货币汇率转换 API
+-   [eBay API](http://developer.ebay.com/common/api/ "eBay API")  
+    eBay 的 API，可以向 eBay 提交货品。
+-   [Twitter API](http://apiwiki.twitter.com/ "eBay API")  
+    Twitter API，用来访问 Twitter 数据，包括用户状态和信息。
+
+### 4\. IP 定位
+
+用户来自什么地方。
+
+-   [OpenCrypt IP Location API](http://www.opencrypt.com/ip-location.php "IP Location API")  
+    根据 IP 探测用户来自哪个国家
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p24.gif)
+
+-   [IP Details](http://www.phpclasses.org/browse/package/5680.html "IP  Details")  
+    一个 PHP 类库，根据 IP 地址获取用户地理位置
+-   [GEO-IP](http://software77.net/geo-ip/ "GEO-IP")  
+    IP 到国家对应数据库
+
+### 5\. 图表
+
+-   [amCharts](http://www.amcharts.com/ "amCharts")  
+    基于 Flash，支持 3D 图表
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p25.gif)
+
+-   [FusionCharts](http://www.fusioncharts.com/ "FusionCharts")  
+    漂亮的 3D 图表
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p26.gif)
+
+-   [XML/SWF Charts](http://www.maani.us/xml_charts/index.php?menu=upgrade "XML/SWF Charts")  
+    可高度定制的 Flash 图表工具
+-   [JFreeChart](http://www.jfree.org/jfreechart/ "JFreeChart")  
+    基 于 Java 的免费图表工具
+-   [pChart](http://pchart.sourceforge.net/index.php "pChart")  
+    基 于 PHP
+
+### 6\. 地图
+
+-   [amMap](http://www.ammap.com/ "amMaps")  
+    交互式地图工具，支持下钻式挖掘
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p27.gif)
+
+-   [Google Charts API](http://code.google.com/apis/chart/ "Google Charts API")  
+    来 自 Google 地图工具，只是支持的地图尺寸有限
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p27.gif)
+
+-   [Flashmaps](http://www.flashmaps.com/ "Flashmaps")  
+    多个基于 Flash 的地图工具
+
+### 7\. 音频播放器
+
+-   [XSPF Web Music Player](http://musicplayer.sourceforge.net/ "XSPF Web Music Player")  
+    基于 Flash 的开源音频播放器
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p29.gif)
+
+-   [Flash MP3 Player](http://www.flashmp3player.org/ "Flash MP3 Player")  
+    免 费 PHP + Flash MP3 播放器
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p30.gif)
+
+-   [TSPlayer](http://components.developers4web.com/mp3-flash-player "TSPlayer")  
+    基于 Flash，支持换皮肤
+-   [E-Phonic MP3 Player](http://www.e-phonic.com/mp3player/ "E-Phonic MP3 Player")  
+    轻量级 MP3 播放器，支持换肤，支持实时视效
+
+### 8\. 视频播放器
+
+-   [OS FLV](http://www.osflv.com/ "OS FLV")  
+    开源 Flash 视频播放器
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p31.gif)
+
+-   [Flowplayer](http://flowplayer.org/ "Flowplayer")  
+    很好用，高度可定制。
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p32.gif)
+
+-   [JW FLV Media Player](http://www.longtailvideo.com/players/jw-flv-player/ "JW  FLV Media Player")  
+    强大的 Flash 视频播放器
+-   [FLV Player](http://flvplayer.com/ "FLV Player")  
+    漂亮的 FLV 播放器
+
+### 9\. 视频转换
+
+-   [OpenCrypt Video Conversion API](http://www.opencrypt.com/video-conversion.php "OpenCrypt  Video Conversion API")  
+    强大的视频转换 API，可生成 FLV 视频
+-   [Hey!Watch](http://heywatch.com/page/home "Hey!Watch")  
+    一个在线视 频编码平台
+-   [Online FLV Converter](http://vixy.net/ "Online FLV Converter")  
+    在线 FLV 视频转换
+-   [FlashVideo Module API](http://www.travistidwell.com/flashvideo_api "FlashVideo  Module API")  
+    面向 Drupal 社区的 Flash 视频编码 API
+
+### 10\. 所见即所得编辑器
+
+-   [TinyMCE](http://tinymce.moxiecode.com/ "TinyMCE")  
+    一个轻量的，基 于 JavaScript 的所见即所得编辑器
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p33.gif)
+
+-   [XINHA](http://trac.xinha.org/ "XINHA")  
+    功能完整的开源 WYSIWYG 编辑器
+
+![](http://www.comsharp.com/Writable/Resource/_Random_/2010-03-18/web_dev_resource_p34.gif)
+
+-   [NicEdit](http://nicedit.com/ "NicEdit")  
+    一个简单的轻量级 WYSIWYG 编辑器
+-   [openWYSIWYG](http://www.openwebware.com/ "openWYSIWYG")  
+    开源，跨浏 览器 WYSIWYG 编辑器
+-   [CKEditor](http://ckeditor.com/ "CKEditor")  
+    设计出众，功能丰富的 WYSIWYG 编辑器

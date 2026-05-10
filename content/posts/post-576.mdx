@@ -1,0 +1,90 @@
+---
+title: "纯css横向下拉菜单"
+date: "2011-01-21"
+category: CSS
+archived: true
+sourceUrl: "http://haozi.me/post/576.html"
+---
+
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+&lt;[html](http://december.com/html/4/element/html.html) xmlns\="http://www.w3.org/1999/xhtml"\>  
+&lt;[head](http://december.com/html/4/element/head.html)\>  
+&lt;[meta](http://december.com/html/4/element/meta.html) http-equiv\="Content-Type" content\="text/html; charset=utf-8" /\>  
+&lt;[style](http://december.com/html/4/element/style.html) type\="text/css"\>  
+#menu\{ margin:0;  padding:0;  list-style:none;  font:14px Arial;  \}  
+#menu li\{ float:left;margin:0 1px 0 0;\}  
+#menu li dl\{width:150px; padding:0 0 10px 0;  
+background:#cb6 url(http://www.zishu.cn/attachments/month\_0804/62008414231638.jpg) no-repeat bottom left;\}  
+#menu li dt\{padding:5px;text-align:center;border-bottom:1px solid #b00;  
+background:#ed8 url(http://www.zishu.cn/attachments/month\_0804/02008414231556.jpg) no-repeat top left;\}  
+#menu li dt a,#menu li dt a:visited\{display:block;color:#333;text-decoration:none;\}  
+#menu li dd\{margin:0;padding:0;color:#fff;background-color:#47a;\}  
+#menu li dd.last\{border-bottom:1px solid #b00;\}  
+#menu li dd a,#menu li dd a:visited\{height:1em;display:block;color:#fff;  
+text-decoration:none;padding:4px 5px 4px 20px;  
+background:#47a url(http://www.zishu.cn/attachments/month\_0804/y2008414231728.gif) no-repeat 7px 7px;\}  
+#menu li dd\{display:none;\}  
+#menu li:hover dd,#menu li a:hover dd\{display:block;\}  
+#menu li:hover,#menu li a:hover\{width:auto\}  
+/\*这句是后来加上的，如果不加会在IE6中有问题；width:auto是我随便写的，你删除后改成disploy:block或其它的内容，只要别它空就行\*/  
+#menu li dd a:hover\{ background-color:#147; color:#9cf;\}  
+#menu table\{ border-collapse:collapse; padding:0; margin:-1px; font-size:1em;\}  
+&lt;/[style](http://december.com/html/4/element/style.html)\>  
+&lt;/[head](http://december.com/html/4/element/head.html)\>  
+&lt;[body](http://december.com/html/4/element/body.html)\>  
+&lt;[ul](http://december.com/html/4/element/ul.html) id\="menu"\>  
+  &lt;[li](http://december.com/html/4/element/li.html)\> &lt;[a](http://december.com/html/4/element/a.html) href\="#nogo"\>  
+    &lt;[table](http://december.com/html/4/element/table.html)\>  
+      &lt;[tr](http://december.com/html/4/element/tr.html)\>  
+        &lt;[td](http://december.com/html/4/element/td.html)\>&lt;[dl](http://december.com/html/4/element/dl.html)\>  
+            &lt;[dt](http://december.com/html/4/element/dt.html)\>&lt;[a](http://december.com/html/4/element/a.html) href\="#"\>Artech Studio&lt;/[a](http://december.com/html/4/element/a.html)\>&lt;/[dt](http://december.com/html/4/element/dt.html)\>  
+            &lt;[dd](http://december.com/html/4/element/dd.html)\>&lt;[a](http://december.com/html/4/element/a.html) href\="#"\>Web Dev&lt;/[a](http://december.com/html/4/element/a.html)\>&lt;/[dd](http://december.com/html/4/element/dd.html)\>  
+            &lt;[dd](http://december.com/html/4/element/dd.html)\>&lt;[a](http://december.com/html/4/element/a.html) href\="#"\>Web Design&lt;/[a](http://december.com/html/4/element/a.html)\>&lt;/[dd](http://december.com/html/4/element/dd.html)\>  
+            &lt;[dd](http://december.com/html/4/element/dd.html)\>&lt;[a](http://december.com/html/4/element/a.html) href\="#"\>Books&lt;/[a](http://december.com/html/4/element/a.html)\>&lt;/[dd](http://december.com/html/4/element/dd.html)\>  
+            &lt;[dd](http://december.com/html/4/element/dd.html) class\="last"\>&lt;[a](http://december.com/html/4/element/a.html) href\="#"\>Contact Us&lt;/[a](http://december.com/html/4/element/a.html)\>&lt;/[dd](http://december.com/html/4/element/dd.html)\>  
+          &lt;/[dl](http://december.com/html/4/element/dl.html)\>&lt;/[td](http://december.com/html/4/element/td.html)\>  
+      &lt;/[tr](http://december.com/html/4/element/tr.html)\>  
+    &lt;/[table](http://december.com/html/4/element/table.html)\>  
+    &lt;/[a](http://december.com/html/4/element/a.html)\> &lt;/[li](http://december.com/html/4/element/li.html)\>  
+  &lt;[li](http://december.com/html/4/element/li.html)\> &lt;[a](http://december.com/html/4/element/a.html) href\="#nogo"\>  
+    &lt;[table](http://december.com/html/4/element/table.html)\>  
+      &lt;[tr](http://december.com/html/4/element/tr.html)\>  
+        &lt;[td](http://december.com/html/4/element/td.html)\>&lt;[dl](http://december.com/html/4/element/dl.html)\>  
+            &lt;[dt](http://december.com/html/4/element/dt.html)\>&lt;[a](http://december.com/html/4/element/a.html) href\="#"\>Artech Store&lt;/[a](http://december.com/html/4/element/a.html)\>&lt;/[dt](http://december.com/html/4/element/dt.html)\>  
+            &lt;[dd](http://december.com/html/4/element/dd.html)\>&lt;[a](http://december.com/html/4/element/a.html) href\="#"\>Books&lt;/[a](http://december.com/html/4/element/a.html)\>&lt;/[dd](http://december.com/html/4/element/dd.html)\>  
+            &lt;[dd](http://december.com/html/4/element/dd.html)\>&lt;[a](http://december.com/html/4/element/a.html) href\="#"\>DVDs&lt;/[a](http://december.com/html/4/element/a.html)\>&lt;/[dd](http://december.com/html/4/element/dd.html)\>  
+            &lt;[dd](http://december.com/html/4/element/dd.html)\>&lt;[a](http://december.com/html/4/element/a.html) href\="#"\>Movies&lt;/[a](http://december.com/html/4/element/a.html)\>&lt;/[dd](http://december.com/html/4/element/dd.html)\>  
+            &lt;[dd](http://december.com/html/4/element/dd.html) class\="last"\>&lt;[a](http://december.com/html/4/element/a.html) href\="#"\>Service&lt;/[a](http://december.com/html/4/element/a.html)\>&lt;/[dd](http://december.com/html/4/element/dd.html)\>  
+          &lt;/[dl](http://december.com/html/4/element/dl.html)\>&lt;/[td](http://december.com/html/4/element/td.html)\>  
+      &lt;/[tr](http://december.com/html/4/element/tr.html)\>  
+    &lt;/[table](http://december.com/html/4/element/table.html)\>  
+    &lt;/[a](http://december.com/html/4/element/a.html)\> &lt;/[li](http://december.com/html/4/element/li.html)\>  
+  &lt;[li](http://december.com/html/4/element/li.html)\> &lt;[a](http://december.com/html/4/element/a.html) href\="#nogo"\>  
+    &lt;[table](http://december.com/html/4/element/table.html)\>  
+      &lt;[tr](http://december.com/html/4/element/tr.html)\>  
+        &lt;[td](http://december.com/html/4/element/td.html)\>&lt;[dl](http://december.com/html/4/element/dl.html)\>  
+            &lt;[dt](http://december.com/html/4/element/dt.html)\>&lt;[a](http://december.com/html/4/element/a.html) href\="#"\>Artech Achi&lt;/[a](http://december.com/html/4/element/a.html)\>&lt;/[dt](http://december.com/html/4/element/dt.html)\>  
+            &lt;[dd](http://december.com/html/4/element/dd.html)\>&lt;[a](http://december.com/html/4/element/a.html) href\="#"\>Landscape&lt;/[a](http://december.com/html/4/element/a.html)\>&lt;/[dd](http://december.com/html/4/element/dd.html)\>  
+            &lt;[dd](http://december.com/html/4/element/dd.html)\>&lt;[a](http://december.com/html/4/element/a.html) href\="#"\>Plan&lt;/[a](http://december.com/html/4/element/a.html)\>&lt;/[dd](http://december.com/html/4/element/dd.html)\>  
+            &lt;[dd](http://december.com/html/4/element/dd.html)\>&lt;[a](http://december.com/html/4/element/a.html) href\="#"\>Design&lt;/[a](http://december.com/html/4/element/a.html)\>&lt;/[dd](http://december.com/html/4/element/dd.html)\>  
+            &lt;[dd](http://december.com/html/4/element/dd.html) class\="last"\>&lt;[a](http://december.com/html/4/element/a.html) href\="#"\>Maps&lt;/[a](http://december.com/html/4/element/a.html)\>&lt;/[dd](http://december.com/html/4/element/dd.html)\>  
+          &lt;/[dl](http://december.com/html/4/element/dl.html)\>&lt;/[td](http://december.com/html/4/element/td.html)\>  
+      &lt;/[tr](http://december.com/html/4/element/tr.html)\>  
+    &lt;/[table](http://december.com/html/4/element/table.html)\>  
+    &lt;/[a](http://december.com/html/4/element/a.html)\> &lt;/[li](http://december.com/html/4/element/li.html)\>  
+  &lt;[li](http://december.com/html/4/element/li.html)\> &lt;[a](http://december.com/html/4/element/a.html) href\="#nogo"\>  
+    &lt;[table](http://december.com/html/4/element/table.html)\>  
+      &lt;[tr](http://december.com/html/4/element/tr.html)\>  
+        &lt;[td](http://december.com/html/4/element/td.html)\>&lt;[dl](http://december.com/html/4/element/dl.html)\>  
+            &lt;[dt](http://december.com/html/4/element/dt.html)\>&lt;[a](http://december.com/html/4/element/a.html) href\="#"\>Artech Science&lt;/[a](http://december.com/html/4/element/a.html)\>&lt;/[dt](http://december.com/html/4/element/dt.html)\>  
+            &lt;[dd](http://december.com/html/4/element/dd.html)\>&lt;[a](http://december.com/html/4/element/a.html) href\="#"\>Physics&lt;/[a](http://december.com/html/4/element/a.html)\>&lt;/[dd](http://december.com/html/4/element/dd.html)\>  
+            &lt;[dd](http://december.com/html/4/element/dd.html)\>&lt;[a](http://december.com/html/4/element/a.html) href\="#"\>Maths&lt;/[a](http://december.com/html/4/element/a.html)\>&lt;/[dd](http://december.com/html/4/element/dd.html)\>  
+            &lt;[dd](http://december.com/html/4/element/dd.html)\>&lt;[a](http://december.com/html/4/element/a.html) href\="#"\>Chemistry&lt;/[a](http://december.com/html/4/element/a.html)\>&lt;/[dd](http://december.com/html/4/element/dd.html)\>  
+            &lt;[dd](http://december.com/html/4/element/dd.html) class\="last"\>&lt;[a](http://december.com/html/4/element/a.html) href\="#"\>Courses&lt;/[a](http://december.com/html/4/element/a.html)\>&lt;/[dd](http://december.com/html/4/element/dd.html)\>  
+          &lt;/[dl](http://december.com/html/4/element/dl.html)\>&lt;/[td](http://december.com/html/4/element/td.html)\>  
+      &lt;/[tr](http://december.com/html/4/element/tr.html)\>  
+    &lt;/[table](http://december.com/html/4/element/table.html)\>  
+    &lt;/[a](http://december.com/html/4/element/a.html)\> &lt;/[li](http://december.com/html/4/element/li.html)\>  
+&lt;/[ul](http://december.com/html/4/element/ul.html)\>  
+&lt;/[body](http://december.com/html/4/element/body.html)\>  
+&lt;/[html](http://december.com/html/4/element/html.html)\>

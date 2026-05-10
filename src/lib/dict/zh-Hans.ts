@@ -52,12 +52,12 @@ export const zhHans: Dictionary = {
     read_article: "阅读全文 →",
     read_arrow: "阅读 →",
     min_read: "分钟阅读",
+    footer_built: "由 Next.js 与 MDX 构建 · 部分内容自 archive.org 抢救而来",
     cols: {
       read: "阅读",
       browse: "浏览",
       author: "作者",
     },
-    footer_built: "由 Next.js · MDX · Inter 构建 — 2026 设计。",
   },
   archive: {
     eyebrow: "Archive",

@@ -53,12 +53,13 @@ export const zhHant: Dictionary = {
     read_article: "閱讀全文 →",
     read_arrow: "閱讀 →",
     min_read: "分鐘閱讀",
+    footer_built: "由 Next.js 與 MDX 建構 · 部分內容自 archive.org 搶救而來",
     cols: {
       read: "閱讀",
       browse: "瀏覽",
       author: "作者",
     },
-    footer_built: "由 Next.js · MDX · Inter 構建 — 2026 設計。",
+
   },
   archive: {
     eyebrow: "Archive",

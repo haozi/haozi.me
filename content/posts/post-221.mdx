@@ -1,0 +1,23 @@
+---
+title: "搜狗浏览器使用google加密ssl搜索"
+date: "2010-05-22"
+category: "耗子软体"
+archived: true
+sourceUrl: "http://haozi.me/post/221.html"
+---
+
+蛋疼的事一件接一件，昨天一个朋友问我，说他们的关键词怎么在google里一搜就挂。朋友是做高低温试验箱的，这个很专业的词没有任何问题，可就因为里面有个“温”字，导致被屏蔽。真TMD囧
+
+今天[Google推出了SSL加密搜索](http://www.cnbeta.com/articles/111778.htm)真是太高兴了，终于可以不用为了找胡萝卜而翻墙了。先打开http://www.google.com/ncr切换到英文模式，然后把http改成https，这样就不会跳到.hk了。可以在Settings 里把语言设成中文，如果你觉得必要的话。
+
+现在来讲下我在搜狗浏览器里如何实现将https://www.google.com设为默认搜索
+
+[![](https://web.archive.org/web/20111128075656im_/http://haozi.cc/upfield/wp/../../upfield/2010/05/google.jpg "google")](https://web.archive.org/web/20111128075656im_/http://haozi.cc/upfield/wp/../../upfield/2010/05/google.jpg)
+
+呃，不要口水，不是chrome，其实人家是搜狗。之所以用搜狗还是因为个人习惯。chrome虽然好，但是仍然不能满足我的需要，由于工作的原因，还是觉得搜狗好用些。
+
+搜狗后台是改不掉默认搜索引擎的，还得通过一个[第三方工具](http://ie.sogou.com/bbs/viewthread.php?tid=153180&extra=page%3D6)。
+
+ [![](https://web.archive.org/web/20111128075656im_/http://haozi.cc/upfield/wp/../../upfield/2010/05/wula.jpg "wula")](https://web.archive.org/web/20111128075656im_/http://haozi.cc/upfield/wp/../../upfield/2010/05/wula.jpg)
+
+url里面填上https://www.google.com/search?hl=zh-CN&q=\{searchTerms\}，然后重启搜狗，将刚才加的设为默认搜索引擎，终于可以在地址栏里搜萝卜、高低温试验箱了

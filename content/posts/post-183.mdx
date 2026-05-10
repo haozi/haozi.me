@@ -1,0 +1,47 @@
+---
+title: "ie6 png不透明的解决方法"
+date: "2010-04-13"
+category: "前端开发"
+archived: true
+sourceUrl: "http://haozi.cc/post/ie6-png.html"
+---
+
+该死的**ie6**，十多年前的浏览器已经早已无法满足现在的网页需求了，但由于微软捆绑，和XP顽强的生命力，很多菜鸟甚至根本不知道什么叫浏览器，只知道桌面上那个蓝色的e字图标能打开百度。使这样的浏览器依然生存着，并占有很大的国内市场。
+
+ie6对png透明的不支持很让人恶心。**png**做为先进的网页图片格式具有很多优势。更清晰，犹其在处理透明方面远胜于gif，不会有毛边。如何使得自己网页上有高清的透明效果呢？，传统的方法有两个：
+
+一：使用gif（效果经常令人揪心）
+
+二：使用和背景相同颜色的“伪透明”（这种情况经常用到，但如果背景不是单一的色块，而是复杂的图片，这种方式就很不适用了）
+
+今天耗子要讲一种比较好的让ie6支持透明png的方式—-**DD\_belatedPNG**，DD\_belatedPNG使用了微软的VML语言进行绘制,而其他多数兼容IE6支持PNG问题的js用的是AlphaImageLoader滤镜，因此对系统的占用率要小得多。
+
+DD\_belatedPNG官方网站：[http://dillerdesign.com/experiment/DD\_belatedPNG/#download](http://dillerdesign.com/experiment/DD_belatedPNG/#download)
+
+使用方法：在网页的最底部或者header中加入
+
+```
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+
+```
+<!--[if IE 6]>
+<script src="DD_belatedPNG.js"></script>
+<script>
+/* EXAMPLE */
+DD_belatedPNG.fix('.png_bg');
+/* string argument can be any CSS selector */
+/* .png_bg example is unnecessary */
+/* change it to what suits you! */
+</script>
+<![endif]-->
+```

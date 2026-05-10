@@ -1,0 +1,121 @@
+---
+title: "CSS Hacks的写法"
+date: "2010-01-23"
+category: "前端开发"
+archived: true
+sourceUrl: "http://haozi.cc/post/css-hacks-written.html"
+---
+
+提示：你可以在多浏览器下测试本代码
+
+1.  &lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"\>
+
+3.  &lt;html lang="en"\>
+
+5.  &lt;head>
+
+7.  &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"\>
+
+9.  &lt;title>CSS Hacks&lt;/title>
+
+11.  &lt;style type="text/css"\>
+
+13.  body p \{
+
+15.  display: none;
+
+17.  \}
+
+23.  html:first-child #opera \{
+
+25.  display: block;
+
+27.  \}
+
+31.  html > body #ie7 \{
+
+33.  \*display: block;
+
+35.  \}
+
+39.  body #ie6 \{
+
+41.  \_display: block;
+
+43.  \}
+
+47.  body:empty #firefox12 \{
+
+49.  display: block;
+
+51.  \}
+
+55.  @-moz-document url-prefix() \{
+
+57.  #firefox \{
+
+59.  display: block;
+
+61.  \}
+
+63.  \}
+
+69.  @media screen and (-webkit-min-device-pixel-ratio:0) \{
+
+71.  #safari \{
+
+73.  display: block;
+
+75.  \}
+
+77.  \}
+
+81.  @media all and (-webkit-min-device-pixel-ratio:10000), not all and (-webkit-min-device-pixel-ratio:0) \{
+
+83.  head~body #opera \{
+
+85.  display: block;
+
+87.  \}
+
+89.  \}
+
+91.  &lt;/style>
+
+93.  &lt;/head>
+
+95.  &lt;body>
+
+97.  &lt;p id="opera"\>我来自 Opera 7.2 – 9.5&lt;/p>
+
+99.  &lt;p id="safari"\>我是神奇的 Safari&lt;/p>
+
+101.  &lt;p id="firefox"\>我来自 Firefox&lt;/p>
+
+103.  &lt;p id="firefox12"\>我是你爷爷 Firefox 1 – 2 &lt;/p>
+
+105.  &lt;p id="ie7"\>我是囧 IE 7&lt;/p>
+
+107.  &lt;p id="ie6"\>我是脑残 IE 6&lt;/p>
+
+109.  &lt;/body>
+
+111.  &lt;/html>
+
+```
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>CSS Browser Hacks - 52css.com</title><style type="text/css">body p {    display: none;}
+
+html:first-child #opera {    display: block;}
+
+ html > body #ie7 {*display: block;}
+
+ body #ie6 {    _display: block;}
+
+body:empty #firefox12 {    display: block;}
+
+@-moz-document url-prefix() { #firefox {    display: block;}}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {#safari {display: block;}}
+
+@media all and (-webkit-min-device-pixel-ratio:10000), not all and (-webkit-min-device-pixel-ratio:0) {head~body #opera {display: block;}}</style></head><body><p id="opera">我来自 Opera 7.2 - 9.5</p><p id="safari">我是神奇的 Safari</p><p id="firefox">我来自 Firefox</p><p id="firefox12">我是你爷爷 Firefox 1 - 2 </p><p id="ie7">我是囧 IE 7</p><p id="ie6">我是脑瘸 IE 6</p></body></html>
+```

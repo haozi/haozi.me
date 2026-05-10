@@ -1,0 +1,19 @@
+---
+title: "QQ在线客服要加好友不能临时会话的问题"
+date: "2010-04-21"
+category: "前端开发"
+archived: true
+sourceUrl: "http://haozi.cc/post/q-online-code.html"
+---
+
+最近耗子给一个客户做网站，他要求在网页上做一个在线客服链接，点开就能启动QQ聊天窗口了。本来以前这个很简单，给他做好了之后也没觉得有问题。今天他问我，为什么要加好友才能聊天，能不能直接启动临时会话。我原以为是用户的QQ安全策略问题，叫他在QQ里设置一下允许临时会话。但实际发现不行。
+
+于是股沟了一下，才发现自QQ2009以后的腾讯安全策略变了，以前的那段代码现在不行了。
+
+新的代码为:
+
+```
+tencent://message/?Menu=yes&uin=87359618&Site=linker&Service=300&sigT=45a1e5847943b64c6ff3990f8a9e644d2b31356cb0b4ac6b24663a3c8dd0f8aa12a595b1714f9d45
+```
+
+其中87359618是QQ号，其中最重要的是sigT后面的一串乱码不能少，80位，可以随便写，但必须是80位。应该是会被腾讯认为是MD5串，但具体什么内容我也不知道，谁也不知道 [![点击这里给耗子发QQ送消息](http://wpa.qq.com/pa?p=1:1456458485:1)](tencent://message/?Menu=yes&uin=87359618&Site=linker&Service=300&sigT=45a1e5847943b64c6ff3990f8a9e644d2b31356cb0b4ac6b24663a3c8dd0f8aa12a595b1714f9d45)

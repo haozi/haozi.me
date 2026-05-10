@@ -233,3 +233,145 @@ classic teal/yellow GeoCities palette into a dark CRT/terminal look
 - `npx tsc --noEmit` and `npm run build` — to be run after this commit.
 - Visual QA on iPad / mobile (the retro 1px-wider haunt clamps to 100%
   under 720px so the dark CRT background should sit cleanly on phones).
+
+## 2026-05-10 — Phase 7: archive ETL — old haozi.cc / haozi.me posts revived
+
+The five seed MDX files (hello-world / why-static / jsonuri / xss-fun /
+math-tricks) were placeholders. Replaced them with 84 real historical
+posts recovered from the Internet Archive, all with their original
+publish dates preserved.
+
+### Data sources
+- Internet Archive Wayback Machine CDX API:
+  `http://web.archive.org/cdx/search/cdx?url=haozi.{cc,me}/*&output=json&filter=statuscode:200&filter=mimetype:text/html`
+- The IA front-end was showing a "Temporarily Offline" banner the day
+  of the migration, but the content endpoint
+  `https://web.archive.org/web/{ts}id_/{url}` was returning clean raw
+  HTML (no IA toolbar injected). All fetches went through `id_`.
+- `archive.today`, `timetravel memento`, Common Crawl probed as fall-
+  backs — only Wayback was needed in the end.
+
+### Inventory
+- haozi.cc (2010–2011): Z-Blog/PHP self-built, primary route
+  `/post/{slug}.html`, secondary `/post/{N}/`. ~70 article URLs in CDX,
+  67 unique posts after merging numeric-ID variants.
+- haozi.me (2011–2018): WordPress + (later) Hexo NeXT. Permalinks span
+  `/post/{N}.html`, `/{N}`, `/post/{slug}.html`, `/blog/archives/{N}`,
+  `/2015/MM/DD/{N}.html`, and full-Chinese slugs. ~30 URLs.
+- The two domains share post IDs (when the site migrated cc → me in
+  2011 the WP IDs were preserved). Cross-domain dedupe by `post-{N}`
+  collapsed 9 duplicate pairs.
+
+### Template families (3 unified WP parsers + 1 Hexo)
+- **Inove** (haozi.me 2011–2012, haozi.cc 2010, multiple skins):
+  `.post#post-{N}` + `<h2>` title + `.info .date "2010年6月24日"` /
+  `.published "七06\n2011"` + `.content` / `.entry` body +
+  `a[rel="category tag"]`.
+- **Librio** (haozi.me /blog/archives/ 2010): `.post#post-{N}` + `<h1
+  class="post-title">` + `.entry` body. No in-DOM date — snapshot
+  timestamp used as upper bound; URL-embedded dates win when present.
+- **2014 WP** (haozi.me 2014): `.post#post-{N}` + `<h2>` + `<span
+  class="date">by 浩子 on 04/4/2014</span>` (added `M/D/YYYY` to
+  `parseChineseDate`).
+- **Hexo NeXT** (haozi.me 2018): `og:title` + `og:description` +
+  `<article class="post-block">` body + `<time itemprop="dateCreated">`.
+
+### Pipeline (`scripts/migrate-archive.mjs`)
+- Inventory hard-coded at top of script (domain, urlPath, archivedTs).
+- Concurrency = 6 parallel Wayback fetches; each response cached under
+  `.archive-cache/{domain}/{slug}.html` so reruns are free.
+- `cheerio` parses; one unified `parseWordPress()` probes ten title
+  selectors, eight date selectors (`.info .date`, `.published`, `.date`,
+  `<time>`, hAtom `.updated`, etc.) and four body selectors
+  (`.content`, `.entry`, `.post-block`, `<article>`).
+- Date parsing supports `YYYY年M月D日`, `YYYY/M/D`, `M/D/YYYY`,
+  `YYYY-MM-DD`, ISO 8601, and the Chinese-month-number variant
+  `一06\n2011` (`一`/`二`/…/`十二` → 1–12).
+- URL-embedded dates (`/2015/01/04/299.html`) used as a tertiary date
+  source.
+- Snapshot timestamp used as a final upper-bound fallback (so 2014-WP
+  posts without DOM dates still get a reasonable date).
+- `TurndownService` converts the body. Wayback-prefixed `<img src>`
+  rewritten back to `https://web.archive.org/web/{ts}im_/...` so images
+  keep loading without raw `archive.org` domain churn.
+- **MDX sanitizer** (idempotent, code-block-aware): walks the markdown
+  body, leaves fenced/inline code untouched, leaves already-escaped
+  `\{ \} \< \>` and HTML entities (`&lt;`, `&#10;` etc.) untouched,
+  and escapes the rest:
+  - `{` → `\{`, `}` → `\}` (PHP `{$this->TypeID}` would otherwise be
+    parsed by acorn as a broken JSX expression)
+  - `<` followed by `[A-Za-z!/]` → `&lt;` (so prose mentioning `<pre>`
+    or `<dl>` doesn't blow up MDX 3's JSX scanner)
+- Slug strategy:
+  - WordPress numeric ID → `post-{N}.mdx`
+  - English slug → kept as-is (`hometown.mdx`,
+    `check-global-variable.mdx`)
+  - Cross-domain dedupe keeps the version with a parsed date + longer
+    body.
+- Frontmatter contract:
+  ```yaml
+  title: "..."
+  date: "YYYY-MM-DD"
+  category: "..."
+  tags: [...]
+  archived: true        # marks as ETL-generated → safe to nuke and re-run
+  sourceUrl: "http://haozi.{cc,me}/..."
+  ```
+- Script is idempotent — at start it deletes every
+  `content/posts/*.mdx` whose frontmatter declares `archived: true`.
+  Hand-written posts are left alone.
+
+### Output
+- 84 posts written to `content/posts/`, time range
+  2008-07-21 → 2018-04-25.
+- Removed five seed test posts (hello-world / why-static / jsonuri /
+  xss-fun / math-tricks).
+- 89 articles parsed, 9 cross-domain dupes folded, 5 placeholder/index
+  pages dropped, 20 archive index URLs (post listing pages) skipped
+  via `body too short` heuristic, 0 errors.
+
+### Dict / Footer fix surfaced during build
+- `SiteFooter.tsx:103` referenced a missing dict key
+  `d.blog.footer_built`. Added the key to `src/lib/dict/types.ts`,
+  `en.ts`, `zh-Hans.ts`, `zh-Hant.ts` ("Built with Next.js — kept
+  small on purpose." / "用 Next.js 搭起来，故意做得很小。" / "用 Next.js
+  搭起來，刻意做得小巧。"). Unrelated to the migration but blocked the
+  build gate; pre-existing.
+
+### Validation
+- `pnpm build` — succeeded.
+  - Turbopack compile 1.5s, TS check 1.0s, 314 static pages generated
+    across `/`, `/zh-Hans`, `/zh-Hant`.
+  - `postbuild-mirror-index.mjs` mirrored 306 `<name>.html` →
+    `<name>/index.html` for static-host friendliness.
+  - 0 prerender errors after MDX sanitizer iterations.
+
+### Files added / changed
+- New: `scripts/migrate-archive.mjs` (~620 lines, single-file ETL with
+  inventory + cheerio parsers + turndown + MDX sanitizer).
+- New: `content/posts/post-{N}.mdx` × 81, `content/posts/hometown.mdx`,
+  `content/posts/check-global-variable.mdx`, `content/posts/post-58.mdx`
+  & `post-75.mdx` & `post-299.mdx` (English-slug ones).
+- Cache: `.archive-cache/{cc,me}/...` HTML snapshots (gitignored — not
+  source of truth, regeneration is one CDX call away).
+- Removed: `content/posts/{hello-world,jsonuri,math-tricks,why-static,xss-fun}.mdx`
+  placeholders.
+- Dict: added `blog.footer_built` to types + 3 locales.
+- Deps added (devDependencies): `cheerio@^1.2`, `turndown@^7.2`,
+  `fast-xml-parser@^5.7` (parser kept in tree for future RSS-driven
+  re-fetches).
+
+### Known limits / follow-ups (parked in TODO.md)
+- post-570 (`一行两列背景自适应的简单写法`) body is a turndown-mangled
+  HTML snippet — the original article was code-heavy and Inove rendered
+  it without proper `<pre>` tags, so turndown linked every HTML tag
+  through `december.com/html/4/element/X.html`. Readable, but ugly.
+  Could re-extract as fenced ```html``` if it bugs the author.
+- Comments not migrated — 2010-era comment threads on haozi.cc are in
+  CDX but out of scope.
+- The 20 skipped URLs are mostly `/post/{N}/` archive index pages
+  whose bodies are just a list of `<h2><a>` previews — they would
+  produce empty articles. Correctly ignored.
+- `cheerio`, `turndown` and `fast-xml-parser` are now `devDependencies`
+  and not used at runtime — kept for the next time an archive sweep is
+  needed.

@@ -1,0 +1,209 @@
+---
+title: "网页垂直居中的写法"
+date: "2010-01-19"
+category: "前端开发"
+archived: true
+sourceUrl: "http://haozi.cc/post/web-page-written-in-the-vertical-center.html"
+---
+
+网页设计中居中的格式定义非常地常见，现在我就把我在工作中遇到的种种居中的情况做个小小的整理，这里主要讲的是垂直居中
+
+一、最简单的，水平居中
+
+XML/HTML 代码复制内容到剪贴板
+
+3.  \*\{margin:0; padding:0\}
+
+5.  .wrapper\{ margin:0 auto; width:400px;border:1px solid #F00;\}
+
+只要定义margin:0 auto和层宽就可以了。不过有个前提，这种代码是xhtml中的写法，所以文件头一定要定义
+
+比较一下
+
+1.  &lt;html\>
+
+3.  &lt;head\>
+
+5.  &lt;meta http-equiv\="Content-Type" content\="text/html; charset=utf-8" />
+
+7.  &lt;title\>无标题文档&lt;/title\>
+
+9.  &lt;style\>
+
+11.  \*\{margin:0; padding:0\}
+
+13.  .a\{ margin:0 auto; width:400px;border:1px solid #F00;\}
+
+15.  &lt;/style\>
+
+19.  &lt;/head\>
+
+23.  &lt;body\>
+
+25.  &lt;div class\="a"\>aaaaaaaaaa&lt;/div\>
+
+27.  &lt;/body\>
+
+29.  &lt;/html\>
+
+```
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>无标题文档</title><style>*{margin:0; padding:0}.a{ margin:0 auto; width:400px;border:1px solid #F00;}</style>
+
+</head>
+
+<body><div class="a">aaaaaaaaaa</div></body></html>
+```
+
+1.  &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"\>
+
+3.  &lt;html xmlns\="http://www.w3.org/1999/xhtml"\>
+
+5.  &lt;head\>
+
+7.  &lt;meta http-equiv\="Content-Type" content\="text/html; charset=utf-8" />
+
+9.  &lt;title\>无标题文档&lt;/title\>
+
+11.  &lt;style\>
+
+13.  \*\{margin:0; padding:0\}
+
+15.  .a\{ margin:0 auto; width:400px;border:1px solid #F00;\}
+
+17.  &lt;/style\>
+
+21.  &lt;/head\>
+
+25.  &lt;body\>
+
+27.  &lt;div class\="a"\>aaaaaaaaaa&lt;/div\>
+
+29.  &lt;/body\>
+
+31.  &lt;/html\>
+
+```
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>无标题文档</title><style>*{margin:0; padding:0}.a{ margin:0 auto; width:400px;border:1px solid #F00;}</style>
+
+</head>
+
+<body><div class="a">aaaaaaaaaa</div></body></html>
+```
+
+二、高度和宽度都固定，且只有一行文字，将line-height和height定义成相等
+
+1.  &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"\>
+
+3.  &lt;html xmlns\="http://www.w3.org/1999/xhtml"\>
+
+5.  &lt;head\>
+
+7.  &lt;meta http-equiv\="Content-Type" content\="text/html; charset=utf-8" />
+
+9.  &lt;title\>无标题文档&lt;/title\>
+
+11.  &lt;style\>
+
+13.  \*\{margin:0; padding:0\}
+
+15.  .wrapper\{ margin:10px auto auto; width:400px; height:40px;border:1px solid #F00; text-align:center; line-height:40px\}
+
+17.  &lt;/style\>
+
+21.  &lt;/head\>
+
+25.  &lt;body\>
+
+27.  &lt;div class\="wrapper"\>aaaaaaaaaa&lt;/div\>
+
+29.  &lt;/body\>
+
+31.  &lt;/html\>
+
+```
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>无标题文档</title><style>*{margin:0; padding:0}.wrapper{ margin:10px auto auto; width:400px; height:40px;border:1px solid #F00; text-align:center; line-height:40px}</style>
+
+</head>
+
+<body><div class="wrapper">aaaaaaaaaa</div></body></html>
+```
+
+三，层的高度自适应，将padding-top和 padding-bottom高成等值
+
+1.  &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"\>
+
+3.  &lt;html xmlns\="http://www.w3.org/1999/xhtml"\>
+
+5.  &lt;head\>
+
+7.  &lt;meta http-equiv\="Content-Type" content\="text/html; charset=utf-8" />
+
+9.  &lt;title\>无标题文档&lt;/title\>
+
+11.  &lt;style\>
+
+13.  \*\{margin:0; padding:0\}
+
+15.  .wrapper\{ margin:10px auto auto; width:400px;border:1px solid #F00; text-align:center; padding-top:40px; padding-bottom:40px\}
+
+17.  &lt;/style\>
+
+21.  &lt;/head\>
+
+25.  &lt;body\>
+
+27.  &lt;div class\="wrapper"\>aaaaaaaaaa&lt;br />aaaaaaaaaa&lt;br />aaaaaaaaaa&lt;br />aaaaaaaaaa&lt;br />aaaaaaaaaa&lt;br />&lt;/div\>
+
+29.  &lt;/body\>
+
+31.  &lt;/html\>
+
+```
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>无标题文档</title><style>*{margin:0; padding:0}.wrapper{ margin:10px auto auto; width:400px;border:1px solid #F00; text-align:center; padding-top:40px; padding-bottom:40px}</style>
+
+</head>
+
+<body><div class="wrapper">aaaaaaaaaa<br />aaaaaaaaaa<br />aaaaaaaaaa<br />aaaaaaaaaa<br />aaaaaaaaaa<br /></div></body></html>
+```
+
+四、层的长和宽固定（这种情况多用于针对body的垂直显水平居中）
+
+将position设成absolute; left:50%; top:50%; margin-left和margin-top向左和向上缩进一半
+
+1.  &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"\>
+
+3.  &lt;html xmlns\="http://www.w3.org/1999/xhtml"\>
+
+5.  &lt;head\>
+
+7.  &lt;meta http-equiv\="Content-Type" content\="text/html; charset=utf-8" />
+
+9.  &lt;title\>无标题文档&lt;/title\>
+
+11.  &lt;style\>
+
+13.  \*\{margin:0; padding:0\}
+
+15.  .wrapper\{ width:400px; height:200px;border:1px solid #F00; text-align:center;position:absolute; left:50%; top:50%; margin-left:-200px; margin-top:-100px\}
+
+17.  &lt;/style\>
+
+21.  &lt;/head\>
+
+25.  &lt;body\>
+
+27.  &lt;div class\="wrapper"\>&lt;/div\>
+
+29.  &lt;/body\>
+
+31.  &lt;/html\>
+
+```
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>无标题文档</title><style>*{margin:0; padding:0}.wrapper{ width:400px; height:200px;border:1px solid #F00; text-align:center;position:absolute; left:50%; top:50%; margin-left:-200px; margin-top:-100px}</style>
+
+</head>
+
+<body><div class="wrapper"></div></body></html>
+```
+
+居中的情况很多种，我们在日常开发时经常遇到层的高度固定，要使里面的多行li内容垂直居中。上面的方式由于使用到了绝对定位，很多情况下我们都是通过目测的方式，将padding-top设置大概的距离，来达到所谓的“垂直居中”

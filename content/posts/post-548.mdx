@@ -1,0 +1,25 @@
+---
+title: "让 标签中的内容自动换行的兼容写法"
+date: "2011-01-21"
+category: CSS
+archived: true
+sourceUrl: "http://haozi.me/post/548.html"
+---
+
+让&lt;pre> 标签中的内容自动换行并符合 W3C 标准（多浏览器支持）  
+默认情况下，  
+&lt;pre> 标签中的内容若超出范围不会自动换行，这样会造成很糟糕的水平滚动条影响效果。  
+下面提供符合 W3C 标准并支持多浏览器的 CSS 样式代码：
+
+pre\{  
+white-space:pre-wrap;/\*css3标准写法\*/  
+white-space:-moz-pre-wrap;/\*兼容老版本火狐\*/  
+white-space:-pre-wrap;/\*Opera4\*/  
+white-space:-o-pre-wrap;/\*Opera7\*/  
+word-wrap:break-word;/\*万恶的IE6\*/\}
+
+PS：新版的火狐、opera、chrome都已经全面支持css3属性，一般用非IE浏览器的用户都能折腾，早换新版了。所以可以简写
+
+pre\{  
+white-space:pre-wrap;/\*css3标准写法\*/  
+word-wrap:break-word;/\*万恶的IE6\*/\}

@@ -101,6 +101,7 @@ export function SiteFooter({ lang }: { lang: Locale }) {
             © 1999–{year} {d.site.shortName}. All rights reserved.
           </span>
           <span>{d.blog.footer_built}</span>
+          {/* footer_built: surfaces the recovery-from-archive lineage */}
         </div>
       </div>
     </footer>

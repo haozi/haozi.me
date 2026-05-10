@@ -55,12 +55,12 @@ export const en: Dictionary = {
     read_article: "Read article →",
     read_arrow: "Read →",
     min_read: "min read",
+    footer_built: "Built with Next.js & MDX. Recovered from archive.org.",
     cols: {
       read: "Read",
       browse: "Browse",
       author: "Author",
     },
-    footer_built: "Built with Next.js · MDX · Inter — designed in 2026.",
   },
   archive: {
     eyebrow: "Archive",

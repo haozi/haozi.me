@@ -1,0 +1,69 @@
+---
+title: "jquery图片过大则等比例缩放，图片过小保持原状"
+date: "2011-01-22"
+category: jQuery
+archived: true
+sourceUrl: "http://haozi.me/post/578.html"
+---
+
+图片宽高不能自适应一直是IE6令人头疼的bug。对于一些内容不可控的容器，如论坛帖子正文，必需事先对容器做好设置，防止过大宽图片冲破容器。首先帖出html和css:
+
+&lt;div class\="contain"\>  
+&lt;p\>&lt;img src\="images/VW.jpg" alt\="大众" />&lt;/p\>  
+&lt;p\>&lt;img src\="images/BMW.jpg" alt\="宝马" />&lt;p\>  
+&lt;p\>&lt;img src\="images/Audi.jpg" alt\="奥迪" />&lt;/p\>
+
+在所有ie6以外的浏览器，只要定义好图片的max-width值，并将height设成auto，即可实现图片的等比例缩放了。
+
+.contain\{width:400px; border:1px solid #F00;overflow:hidden\}  
+img\{border:none;height:auto;max-width:400px\}
+
+用js实现图片等比例自适应的原理是:
+
+```
+公式：
+图片真实宽度（imgWidth）                 图片允许的最大宽度（maxWidth）
+———————————        =         ———————————————————————
+图片真实高度（imgHeight）                图片允许的最大宽度此时图片的高度（maxHeight）
+
+所以推导出:
+maxHeight =maxWidth * imgHeight / imgWidth
+```
+
+所以js部分应该这么写：
+
+$(document).ready(function()\{  
+    var maxWidth \= $(".contain").width();//找到容器的宽度，图片的最大宽度不能比这大，否则就撑破了  
+    $("img").each(function()\{  
+        if(!$.support.style&&$.browser.msie&&($.browser.version\==6.0))\{//为了提高效率，代码只在ie6下才运行js判断。  
+            var imgWidth \= $(this).width();//获得容器内每张图片的宽  
+            var imgHeight \= $(this).height();//获得容器内每张图片的高  
+            var maxHeight \= maxWidth\*imgHeight/imgWidth;//等比例绽放之关键：计算图片压缩后的高度  
+            if(imgWidth \> maxWidth)\{//判断图片的宽度，如果图片比容器宽才执行缩放，如果比容器小则显示原始尺寸  
+                $(this).css("width",maxWidth).css("height",maxHeight);  
+            \}  
+        \}  
+    \});  
+\});
+
+[查看实例](/demo/578/1.html)
+
+由于图片大小缩放可能在很多页面里都会使用，所以可以把这个封装成一个插件
+
+    $.fn.imgAuto \= function(maxWidth)\{  
+            var imgWidth \= this.width();  
+            var imgHeight \= this.height();  
+            var maxHeight \= maxWidth\*imgHeight/imgWidth;  
+            if(imgWidth \> maxWidth)\{  
+                this.css("width",maxWidth).css("height",maxHeight);  
+            \}  
+    return this;  
+    \}
+
+在具体图片的地方只要调用
+
+   $("img") .each(function()\{  
+        $(this).imgAuto(200);//200为图片最大允许的宽度  
+    \})
+
+[查看实例](/demo/578/2.html)

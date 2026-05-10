@@ -1,0 +1,17 @@
+---
+title: "jquery准确判断ie6"
+date: "2011-02-10"
+category: jQuery
+archived: true
+sourceUrl: "http://haozi.me/post/581.html"
+---
+
+jquery提供的$.brower方法只能判断浏览器的种类，而不能具体到版本。日常工作中我们最为头疼的就是IE6，有时候要专门为ie6写hack。  
+以前我的判断方法一直是版本+版本号。 if($.browser.msie&&($.browser.version==6.0))。、  
+但最近发现一个惊天bug。
+
+jquery是根据userAgent的version值正则判断的，但是如果在windows2008k中，会把windows NT 6.0误认为是ie6.0，导致将ie8误认成ie6。  
+$.browser方法jquery官方已经不赞成使用了。建议的方法是$.support,但我把所有的属性值都测试完毕后发现没有一个能只检测出IE6的，最后发现$.support.style在IE6和IE7中返回值为false。  
+那么取他们属性的交集便可以准确判断IE6了。  
+所以 if($.brower.msie&&($.browser.version==6.0)&&!$.support.style)  
+虽然很长，但效果还是不错的。

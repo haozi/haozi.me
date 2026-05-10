@@ -1,0 +1,31 @@
+---
+title: "比较简单的异步加载JS文件的代码"
+date: "2011-01-21"
+category: javascript
+archived: true
+sourceUrl: "http://haozi.me/post/558.html"
+---
+
+&lt;script\>  
+function getJsFile(url, callBack)\{  
+    var XH \= window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject('Msxml2.XMLHTTP');  
+    XH.open('get',url,true);  
+    XH.onreadystatechange \= function()\{  
+        if(XH.readyState \== 4 && XH.status \== 200)\{  
+            if(window.execScript) window.execScript(XH.responseText);  
+            else eval.call(window, XH.responseText);  
+            eval(callBack)();  
+        \}  
+    \}  
+    XH.send('');  
+\}  
+&lt;/script\>
+
+//test  
+&lt;script\>  
+function cb()\{  
+    alert(1);  
+    abc();  
+\}  
+getJsFile('http://div.li/wp/wp-content/themes/tweetmeblue/js/carousel/stepcarousel.js','cb');  
+&lt;/script\>

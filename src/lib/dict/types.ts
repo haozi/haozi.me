@@ -51,12 +51,12 @@ export type Dictionary = {
     read_article: string;
     read_arrow: string;
     min_read: string;
+    footer_built: string;
     cols: {
       read: string;
       browse: string;
       author: string;
     };
-    footer_built: string;
   };
   archive: {
     eyebrow: string;

@@ -1,0 +1,62 @@
+---
+title: "定义表格的指定列的属性"
+date: "2011-02-12"
+category: CSS
+tags: [jQuery]
+archived: true
+sourceUrl: "http://haozi.me/post/690.html"
+---
+
+首先我们先看看css3中的实现方式：
+
+### 1.1 CSS3中表格行的选择：
+
+css3中有很多很不错的伪类，比如以前很头疼的表格隔行换色问题，只需要用
+
+table tr:nth-child(odd)\{background:#CCC\}/\*定义奇数行的背景色为灰\*/  
+table tr:nth-child(even)\{background:#F00\}/\*定义偶数行的背景色为红\*/
+
+另外，css3中，伪类可以连写，比如我们要设定鼠标hover时，奇数行背景色变成蓝色，可以这样写
+
+table tr:hover:nth-child(odd)\{background:#00F\}/\*鼠标滑过时，第奇数行背景色变成蓝\*/
+
+除了定义奇偶性，我们也可以使用css3强大的nth-child()选择器，定义指定行：
+
+table tr:nth-child(2)\{background:orange\}/\*第2行定义为桔色\*/
+
+是不是非常简单？  
+[查看实例](/demo/690/1.html)（需要在支持css3属性的浏览器中才能看到效果）
+
+### 1.2 CSS3中表格列的选择：
+
+列的定义在css3中同样非常简单，唯一不同的不是定义tr而是定义td
+
+table td:nth-child(odd)\{background:#CCC\}/\*定义奇数列的背景色为灰\*/  
+table td:nth-child(4)\{background:#F00\}/\*定义第4列背景色为红\*/
+
+[查看实例](/demo/690/2.html)（需要在支持css3属性的浏览器中才能看到效果）  
+\=================华丽的分割线=====================================  
+虽然CSS3的强大选择器相当牛B,可是万恶的IE6不支持，不光IE6不支持，连IE8都不支持。所以在实际应用中，还是要寻求javascript还解决。下面来讲下在jquery中的解决方法：
+
+### 2.1 jQuery中表格行的选择：
+
+$("table tr:even").css("background","#CCC");/\*定义奇数行的背景色为灰\*/  
+$("table tr:eq(3)").css("background","#F00");/\*定义第4行的背景色为红\*/
+
+[查看实例](/demo/690/3.html)(这回兼容该死的IE6了)
+
+### 2.2 jQuery中表格列的选择：
+
+javascript里对列的选择要麻烦一点，没有像CSS3里那样现成的定义。可以试下jQuery里的table td:even，效果是与css3里的table td:nth-child(even)不一样的。但我们知道原理也不难。  
+首先要知道表格的总列数，那么第1列就是td的序数除以列总数余数为0的（jquery数数从0数起的）。
+
+var tdNum \= $("table tr:first td").length;//得到表格的列数，即为第一个tr里td的个数。  
+    $("table td").each(function(i)\{  
+        if (i%tdNum \== 0)//当前td的序数除以总列数余数为0表示第1列  
+        \{  
+            $(this).css("background","#F00");  
+        \}  
+    \});
+
+[查看实例](/demo/690/4.html)  
+但是还有个问题我至今还没想到好的兼容解决方法。就是在表格里有colspan值的时候，这时候实际td数会少于正常表格。用css3可以很好地定义，但jquery貌似不能

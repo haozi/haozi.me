@@ -1,0 +1,17 @@
+---
+title: "模板文件不存在，无法解析文档！-dede报错解决方法"
+date: "2010-07-22"
+category: "耗子软体"
+archived: true
+sourceUrl: "http://haozi.me/post/344.html"
+---
+
+耗子最近做了个dede网站，比较无耻，全是采集的，不要鄙视耗子，虽然是采集，但都留有出处的，不会无耻地伪原创。
+
+后台生成静态页的时候出现了“模板文件不存在，无法解析文档！”的错误，赶紧问google，gogle不错，第一条就给出了解决方法：[http://bbs.dedecms.com/121674.html](http://bbs.dedecms.com/121674.html)，于是照着这哥们的方法去做，首先，找到dede/include/arc.archives.class.php这个文件，把echo "模板文件不存在，无法解析文档！;"改成echo "模板文件不存在，无法解析文档！" .$this->ArcID;，重新生成——晕，不起作用。
+
+于是又试着第二条修改dede/include/arc.listview.class.php，把echo "模板文件不存在，无法解析文档！;"改成echo "模板文件不存在，无法解析文档！：$tempfile";生成——奶奶的这回报出错了模板文件不存在，无法解析文档！E:wwwrootTemplate不存在，可是这个错误还是让我一头茫然，到底是什么错呢？不知道。
+
+想了半天，照着这哥们的思路，把他的这句改成了echo "模板文件不存在，无法解析文档！\{$this->TypeID\},\{$tempfile\}";加了个TypeID，这下报出了这样的错误：模板文件不存在，无法解析文档！16,E:wwwrootTemplate不存在，错误找到，我的文章里typeid=16的栏目并不存在，早就删掉了，应该是这个ID在数据库里还有残存，在地址栏里执行http://127.0.0.1/dede/catalog\_del.php?id=16&typeoldname=%C3%C0%C8%DD，这是删除特定栏目的超链接，按照提示将这个栏目再删除了一下，重新生成——搞定
+
+gia~gia~膜拜一下自己

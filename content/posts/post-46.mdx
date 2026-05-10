@@ -1,0 +1,260 @@
+---
+title: "商业Web应用程序的用户界面设计"
+date: "2010-04-08"
+category: "Web Design"
+archived: true
+sourceUrl: "http://haozi.me/blog/archives/46"
+---
+
+[\[Translate\]](&lt;javascript:show_translate_popup\('en', 'post', 46\);>)![](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/plugins/google-ajax-translation/transparent.gif)
+
+---
+
+商务Web应用程序的[设计](http://paranimage.com/category/dede/)常常被人们所忽视。我看到许多程序，它们既不符合商业目标，也不满 足用户需求，它们有很差的用户体验，并造成了商业利润的损失。更夸张的是，有些设计师根本没有参与整个程序的[开发](http://paranimage.com/category/dede/)流程，而是把全部职责都推给了开发人员。
+
+对于擅长前端和后台技术的工程师来说，他们缺乏设计能力，很难完成这项艰巨的任务。不满意的 消费者、沮丧的用户，以及失败的项目，也就自然而然地出现了。
+
+接下来，我们将介绍“商务Web应用程序”界面设计的基础知识。一般来说,人们可以提供许多有关界面设计的方法、技巧和准则，而这里，我们的重点将 放在商务Web应用程序上来。
+
+## 一. 网站与Web应用程序
+
+我们很容易将Web应用程序和网站搞混，就像搞混用户界面设计与网页设计一样。其实它们在本质上和其他方面上都有很大不同，本文将就此与大家探讨。
+
+一个网站更像是一组网页集合，大部分都是静态文本、图像和视频等等，只有有限的交互功能（联系表单和搜索功能除外）。**网站的主要作 用是提供信息。**虽然一些网站使用“内容管理系统”来提供动态文本，但从性质上来说依旧是信息。
+
+[![](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/11.jpg "1")](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/11.jpg "1")
+
+CampaignMonitor是强大的电子邮件营销软件，而Jeff Sarimento 的网站向读者讲述他的工作和生活。
+
+另一方面讲，Web应用程序是**动态交互系统**，它帮助企业完成重要商业事务，评估并提高企业自身生产力。因此 Web应用程序的主要作用是：根据明确的业务规则，满足不同用户的需求。
+
+Web应用程序在参与度以及知识储备方面，对用户有更高的要求。这些用户不只是偶然地使用了它，并评价一番，而是把它当作完成日常重要商务的平台。 总之，当他们不了解一款程序的运行机制时，是不会随便喜新厌旧的。而对网站来说，这种情况却常常发生。
+
+### 1.1 不同类型的Web应用程序
+
+Web应用程序的业务范围，可以从为自由职业者开发票，到内容管理、文件管理、银行和金融系统等等。
+
+我们可以区分出**开放的和保密的应用程序**。在开放的程序中，用户可以很容易接近到其他注册用户。他们可以在网上使 用这些程序，选择注册免费账号或是收费账号。保密的应用程序通常不允许在公司以外的地点使用。在外面,它们仅仅是一个“离线”的程序（虽然很多系统通过一 些服务或是专用接口，向商业伙伴展示了一些功能）。这种程序一般只能在公司的内部网络中运行，只有员工才可以使用。
+
+我不知道是谁创造了**weblication**这个词，至少在现阶段我很喜欢它，它描述了Web应用程序是什么。但 这并不意味着一个Web应用程序就是网站和程序的简单混合，它可比这复杂得多。
+
+## 二. 首先要了解你的用户
+
+有一句话，你可能听过有一千次了，也听过遵循它的理由。这就是“一个成功的用户界面，一定要以用户和他们的任务为核心”。这也是为什么许多开发人员没能创 造出良好的用户体验的关键。正如Steve Krug所说，“开发人员喜欢复杂的东西，他们享受发现事物运行机制的过程。”
+
+[![](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/2.jpg "2")](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/2.jpg "2")
+
+在识别用户时，切忌，[客户不是用户，你也不是](http://52weeksofux.com/post/385981879/you-are-not-your-user)。虽然客户的管理层通常会对该项目感兴趣，并试图影响你的决策，但你要 记住，他们不会每天使用该程序工作好几个小时（除非该程序是专门为他们设计的）。
+
+### 2.1 如何识别用户？
+
+我们可以通过许多方法识别用户，比如用户访谈，商业利益相关者访谈和影子用户观察( the “shadowing” method of observation)等。“用户访谈”让你了解用户在程序和计算机方面的知识储备，而通过“用户观察” 能得到更详尽的信息，比如用户是如何完成任务的，他们都犯了哪些错误。“影子用户观察”之所以这么称呼它，是因为观察者需要像用户的影子一样，与其形影不 离，注意他们的每一步操作。
+
+如果你没有遇到真正的用户，可能是因为你没有权限，或是在设计开放的应用程序，你可以使用“人物角色”来帮自己识别用户。“人物角色”是真实用户的 代表，他具有他们的习惯，目标和动机等等。你可以利用在商业分析报告中获得的用户信息，来创建“人物角色”。 如果你对这种方法不太熟悉，[Brand Colbow的漫画](http://carsonified.com/blog/design/how-to-understand-your-users-with-personas/)将对你有帮助。
+
+[![](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/3.jpg "3")](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/3.jpg "3")
+
+“[任务分析](http://www.usability.gov/analyze/analysis.html)”有助于确定用户在工作中需要完成哪些任务，他们是如何完成的，需要多长时间，犯了哪些 错误。有时用户正在使用你要去更新的旧程序。你正好可以利用这套旧程序，来看看用户是如何操作的。这样你会很容易了解到他们的任务和遇到的挑战。
+
+可以肯定的是：无论你的用户是谁，在通常情况下你都必须同时考虑**新手用户和专家用户**。使“新手”尽快上手，“专 家”高效地完成任务，也许意味着要为他们各自单独设计界面。但在很多情况下，你要使用各种技巧，来保证不同类型的用户正常使用同一界面，比如隐藏高级功 能。
+
+这些研究通常由市场分析来完成。但当没人来负责这项业务时，你应该去完成它。一旦得到了必要的信息，就可以动手设计了。
+
+## 三. 设计流程
+
+设计用户界面时，你可以从许多流程中选择一种来执行，或者可能你已经有了一种流程。不过我建议你选择一种更便捷的方法。可能你会问为什 么。这是因为对用户（和客户）来说，最终的用户界面才是他们看到的。本质上来说，他们并不关心你的草图、高超的后台技术以及功能强大的服务器，他们只希望 看到用户界面。
+
+那么这种方法是如何执行的呢？主要还是通过它的核心法则：迭代。每次迭代都包括你在流程中定义的所有阶段。这意味着在第一轮结束时，你将有一个可以 测试的产品：原型。
+
+[![](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/4.jpg "4")](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/4.jpg "4")
+
+### 3.1 草图
+
+草图可以有效的拓展思路。我们通过画出不同的概念图来寻求解决方案。大多数草图会被丢弃，但这无所谓。正如Bill Buxton在他的著作《手绘用户体验草图》中所说：“草图不但速度快还便于处理，这就是它们如此强大的原因”。
+
+草图是否与线框图一样呢？似乎差别可以被忽视，但我却不这样认为。线框图并不是用于获得粗略的想法，而是去延伸它们。可以读读IxDA上的精彩讨 论：[线框图前的草图](http://www.ixda.org/discuss.php?post=48924)。
+
+一旦你画出了“正确”的草图，或者至少是你认为正确的，你便可以创建更详细的线框图，或者直接去创建交互原型。
+
+[![](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/5.jpg "5")](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/5.jpg "5")  
+[Jason Robb](http://www.flickr.com/photos/jasonrobb/3836463737/)画的草图。
+
+#### 有关草图和线框图的趣味阅读：
+
+-   [35个优秀线框图素材](http://www.smashingmagazine.com/2009/09/01/35-excellent-wireframing-resources/)[画](http://www.uxbooth.com/blog/tools-for-sketching-user-experiences/)
+-   [用户体验草图的工具](http://www.uxbooth.com/blog/tools-for-sketching-user-experiences/)
+-   [20步帮你提高线框图质量](http://carsonified.com/blog/web-apps/20-steps-to-better-wireframing/)
+
+### 3.2 原型
+
+流程的下一步就是创建原型，用以模拟真实程序。原型可以含有一个或多个界面（或所有界面），它们只是模拟了一个真实程序的行为，让用户 感觉程序确实是在运行。可其实呢，它们什么都没有做。如果需要的话，原型也可以完成一些功能（比如复杂运算）。
+
+网页原型是临时的，其目的归根结底还是去验证想法。由于你不用花时间写代码，也就降低了犯错的成本。反正最后你也会扔掉它嘛。你还可以用专门的原型 制作工具，比如[Axure](http://www.axure.com/)，有些人甚至会用[PowerPoint](http://office.microsoft.com/en-us/powerpoint/default.aspx)来制作原型。
+
+[![](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/6.jpg "6")](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/6.jpg "6")  
+一个用Axure制作的电子商务网站的交互原型，[e-maujean](http://www.flickr.com/photos/e-maujean/4188239932/)提供。
+
+有关原型的其他阅读资料和工具：
+
+-   [5个有关网站规划和原型制作的在线工具](http://blog.webdistortion.com/2009/02/22/useful-online-tools-for-easier-website-planning-and-prototyping/)
+-   [原型制作指南](http://www.rosenfeldmedia.com/books/prototyping/)：Rosenfeld Media著
+-   [16个原型和线框图制作工具](http://articles.sitepoint.com/article/tools-prototyping-wireframing)
+
+### 3.3 测试
+
+如果你没有测试原型，它们便无法发挥作用。其实测试也算不上什么困难工作。Jakob Nielsen和Steve Krug就支持一种被称作“简易可用性测试”（“discount usability testing”）的方法，它成本低廉、便捷，并能为你的设计决策提出宝贵建议。你也可以将测试结果用作另一次迭代的基础。在重大问题得到解决之前，你至 少要这么测试。我们知道，软件项目的时间和预算都很紧张，因此为了更有效率，**测试得越早越频繁，也就越好**。
+
+Steve Krug的新书《将困难工作变得更简单》（“Rocket Surgery Made Easy”）是有关“简易可用性测试”方面最好的素材之一，找一本读读吧。
+
+[![](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/7.jpg "7")](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/7.jpg "7")  
+照片内容是有关美味的可用性测试，[Dave（新西兰）](http://www.flickr.com/photos/nzdave/491411546/)提供。
+
+#### 其他阅读资料：
+
+-   [为什么你只需要测试5名用户](http://www.useit.com/alertbox/20000319.html)
+-   [解密可用性测试](http://www.alistapart.com/articles/usability-testing-demystified/)
+-   [可用性测试的神话](http://www.alistapart.com/articles/usability-testing-demystified/)
+
+## 四. 设计准则
+
+现在流行着许多设计准则，但这些准则似乎并没有达成共识。我们将抛开那些严格的定义，带着大家简单地将它们过一遍。
+
+### 4.1 没人喜欢被惊吓
+
+优秀用户界面的关键，可以说就是“一致”与“友好”。用户界面在程序内部，比如导航和配色等，都应该保持一致。这就是**内部一致**。 除此以外，套装程序和系统在用户界面上也应互相保持一致。典型的案例就是微软的Office套装。这就是**外部一致**。
+
+一种保证“一致”的有效方法，就是为每个或每组项目的用户界面都制定“用户界面设计准则”。每个细节的设计都应该遵行它。设计准则不仅能使界面保持 一致，作为说明文档，它还能帮助团队成员更好地理解你的决策。
+
+[![](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/8.jpg "8")](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/8.jpg "8")  
+一个简单的例子，SprinklePenny在全站都保持着“一致”和“友好”。
+
+一致的用户界面容易上手，因为用户可以根据以前版本的使用经验，识别程序各部分。“**友好**”某种意义上容易与“一 致”相混淆。“友好”的用户界面从用户过去的经历中提取信息，形成合理的隐喻。比如说文件夹，就是一个有关文件组熟知的隐喻，它已取代了以前命令行界面中 使用的“目录”。总之，就是使用用户自己的语言。
+
+很多企业领导都有一个共同的认识：出色的用户界面要看起来像微软Office系列，特别是outlook。我不想说这多么没意义。这里，我只提出不 同于他们的建议：要沿用“以用户为中心”的方法，并解释为什么为员工、客户和合作伙伴（也就是**他们的用户**）所设计的应 用程序才是重要的。
+
+尽管如此，由于工作流程不同，大多数企业的情况也是各异的。例如来自同一行业的两个企业，很可能就有不同的工作流程。这会迫使你超越自己，开始**创 新**。这部分的设计流程是相当吸引人的，当然你也要在创新的程度上多加把握。
+
+#### 其他阅读资料：
+
+-   [为用户界面设计和选择组件](http://uxmag.com/design/designing-amp-selecting-components-for-uis)
+-   [为什么说一致很重要](http://articles.sitepoint.com/article/why-consistency-is-critical)
+
+### 4.2 用户应当是高效的
+
+毫无疑问，用户应该能高效地使用商务应用程序。这是他们付费的原因，也是管理者所期望的。用户界面应该让用户高效工作，以最简单、最快 捷的方式完成任务。但事实上，并非总是如此。开发人员在思想和行动上有一种想法。他们认为：用户界面的后台应尽可能的复杂。无论听起来多么荒谬，但问题已 经出现了，可能还会令你很头痛。这就是为什么说与开发人员的良好沟通和合作是很必要的。
+
+用户**完成特定任务**时应该是高效的。正如前文所说，任务分析可以帮助你确定任务，以及用户如何完成。如果任务很花 时间，就需要将其分解成一些较小的任务，这样用户就不会感觉费时了。你还可以通过提供**键盘输入和快捷键**来提高效率。试 想一下，当用户必须在鼠标和键盘之间来回切换是多么耽误时间。在某些情况下，你需要为习惯于命令行界面的用户设计，他们强烈希望支持键盘输入。给你一个建 议：定义快捷键时，应与常用程序的快捷键相同。例如，Ctrl + s永远应该是“保存”等等。
+
+[![](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/9.jpg "9")](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/9.jpg "9")  
+Google Docs中的表格就为用户提供了键盘快捷键和快捷菜单，并借鉴了用户熟悉的桌面程序，使用户高效率完成工作。
+
+通过**个性化定制**可以提高用户使用效率。用户自己定制界面时，不但会更快上手，更重要的是，在使用时会更有信心。 个性化可以体现在许多方面：选择仪表板中的模块，定义快捷键选项和收藏，改变组件顺序等等。
+
+注意一下**可访问性**。虽然许多人认为在Web应用程序中“可访问性”并不重要。但事实并不这样。要像对待公共网站 的可访问性那样去对待它。
+
+Web应用程序在处理信息时也必须是高效的。因此，局部呈现和[AJAX请求](http://www.jankoatwarpspeed.com/post/2009/11/01/usability-tips-visualizing-ajax-requests.aspx)产生的耗资源的交互行为需要慎重使用。
+
+### 4.3 救命！
+
+对于系统处于何种状态，界面上应提供**有效的反馈**。如果发生错误，应当通知用户并设法恢复。如果程序正在运行中，需要通 知用户进展如何。
+
+我们可以更进一步说：用户界面应该防止用户犯错。这一法则被称作**容错**，确认对话框、撤消选项、智能输入 （forgiving formats）等就遵循了它。“容错”让用户更安全地使用程序，降低了学习成本，并提高了整体满意度。
+
+由于Web应用程序很复杂，你还需要提供一个**综合帮助系统**。这项工作可以由内部帮助、支持的数据库、知识库或是 向导（包含视频，图像和文字）来完成。
+
+#### 其他阅读资料：
+
+-   [用户界面设计中的容错](http://www.jankoatwarpspeed.com/post/2009/11/17/Forgiveness-UI-design.aspx)
+-   [Web表单确认：最佳实例和教程](http://www.smashingmagazine.com/2010/02/25/2009/07/07/web-form-validation-best-practices-and-tutorials/)
+-   [悉心处理用户错误：使用户重回正轨](http://www.uxbooth.com/blog/showing-error-messages-to-users/)
+
+### 4.4 让用户满意
+
+满意度是一个比较主观的词，它是指用户使用界面时的愉悦程度。我们之前介绍的每一条设计准则，都会影响满意度。还有一些准则需要在这提 一下。
+
+**简洁**是界面设计的一条基本准则。越是简洁的用户界面，就越容易操作。但对商务应用程序来说，让用户界面简洁却是 一个挑战，因为这些程序往往有许多功能。问题的关键就是要平衡功能和简洁。最有效的解决方法就是“约束”。换句话说，就是找到最简单的解决方案。
+
+[![](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/10.jpg "10")](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/10.jpg "10")  
+BuildWith.me有一个简单而有效的用户界面，它并没有为此牺牲美观。
+
+**美观**，虽然是有些主观甚至随意的评价，但也是影响满意度的重要因素。用户喜爱漂亮的用户界面，甚至可以为此牺牲 功能。但你也要注意自己并不是在创造艺术品。有关美观的最好的文章之一是[美丽无罪](http://www.alistapart.com/articles/indefenseofeyecandy/)（In Defense of Eye Candy）。
+
+由于用户会使用一个商务应用程序很久，无论一款程序多么好用，多么具有一致性和容错性，评价它成功与否的决定因素还是：用户满意度。
+
+#### 其他阅读资料：
+
+-   [简化界面设计的7种方法](http://www.webdesignerdepot.com/2009/02/7-interface-design-techniques-to-simplify-and-de-clutter-your-interfaces/)
+-   [约束](http://www.usabilitypost.com/2009/10/02/restraint/)
+-   [美丽无罪](http://www.alistapart.com/articles/indefenseofeyecandy/)
+
+**用户界面设计的其他相关资料：**
+
+-   [优秀用户界面设计的12条准则](http://www.alistapart.com/articles/indefenseofeyecandy/)
+-   [成功用户界面的8个特征](http://www.usabilitypost.com/2009/04/15/8-characteristics-of-successful-user-interfaces/)
+-   [用户界面设计准则（维基百科）](http://en.wikipedia.org/wiki/Principles_of_User_Interface_Design)
+-   [成为界面设计大师的10条准则](http://net.tutsplus.com/articles/10-principles-of-the-user-interface-masters/)
+-   [20个网站帮你精通用户界面设计](http://sixrevisions.com/usabilityaccessibility/20-websites-to-help-you-master-user-interface-design/)
+
+## 五. Web应用程序的重要元素
+
+Web应用程序虽然是各异的，但它们大多有很多相同的程式。每个应用程序对其程式的使用方式并不相同，让我们先看看它们中最常见的三个 吧。
+
+### 5.1 Web表单
+
+一般来说，表单对Web应用程序非常重要。不过，Luke Wroblewski在他的Web表单设计的著作中却说“没有人愿意填表单。”这里说的表单，就包括许多商务Web应用程序的注册表单。
+
+尽量减少用户填写表单时的挫折感。提供内部验证与良好的反馈系统，并尽可能使用默认值。不要忘记新手用户，通过向导或隐藏高级（或不常用的）功能， 来帮助他们更快地完成任务。
+
+### 5.2 主从窗格（Master-Detail Views）
+
+它指的是一种在两个独立且相关的窗格看数据的程式。一个窗格显示项目列表，另一个显示所选项的详细信息。这种程式在单一页面或多页切换时都可实现。
+
+### 5.3 仪表板（Dashboards）
+
+很多Web应用程序都有仪表板。仪表板将需要操作和决定的重要信息展示在一起。它一般仅在单一页面出现，而且是一个应用程序的初始页。仪表板非常重要，因 为它让用户在不进入深层界面的情况下，就可以看到信息并执行任务。
+
+[![](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/111.jpg "11")](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/111.jpg "11")  
+Xero在仪表板中显示了用户的最重要的财务信息（如银行帐户和信用卡信息），以便于用户迅速看到 自己的财务状况。
+
+### 5.4 大量使用表格
+
+由于Web应用程序需要处理大量易归类的数据，表格也就不可避免了。这其实并不是一坏事。事实上，表格就是干这个用的。不要将其与没表 格的页面布局相混淆。只有有效的表格才容易阅读。因此在多数情况下，你需要选择一个有意义的标题，控制好表格各列和分页的数量，将行颜色交替显示，适当对 齐表格各列，并提供排序和过滤功能等等。
+
+表格是可以人为调整的，这就是说你可以为它们添加更多信息，甚至去修改它们的数据项。
+
+[![](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/12.jpg "12")](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/12.jpg "12")  
+PulseApp是表现“表格有效处理当前复杂数据”的优秀案例。
+
+### 5.5 报告
+
+大多数企业都离不开报告。由于打印报告是常用功能，你就要重视报告的设计。打印（或输出）的报告通常是线上报告的简化版本，需要优化它来适应单色打印。
+
+[![](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/13.jpg "13")](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/13.jpg "13")  
+FreshBooks具有打印，PDF输出和“发送电子邮件”功能。它还能提供打印预览。
+
+我们对界面设计版式的讨论已经很习惯了，但有时却还会忽视它们！用户界面设计版式对设计用户界面是很有帮助的。版式往往能解决常见问 题，合理的版式可以方便用户熟悉界面，尽快上手。因此，你要在设计流程的初期阶段就考虑版式，最好在草图阶段就开始。
+
+[![](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/14.png "14")](https://web.archive.org/web/20100412010944im_/http://www.haozi.me/blog/wp-content/uploads/2010/04/14.png "14")  
+这张截图来自[12个标准屏幕版式](http://designingwebinterfaces.com/designing-web-interfaces-12-screen-patterns) ，这篇文章能帮你重温最常见的屏幕版式。
+
+其他阅读资料：
+
+-   [Web界面设计：富交互的原则和版式](http://www.amazon.com/Designing-Web-Interfaces-Principles-Interactions/dp/0596516258/ref=sr_1_3?ie=UTF8&s=books&qid=1264343645&sr=8-3) 这是一本出色的著作，涵盖了70多个网页设计版式。
+-   [40多个有关用户界面设计版式的素材](http://www.amazon.com/Designing-Web-Interfaces-Principles-Interactions/dp/0596516258/ref=sr_1_3?ie=UTF8&s=books&qid=1264343645&sr=8-3)
+
+## 七. 案例教学：网上银行
+
+接下来我举一个真实的案例，用来简单介绍设计“小型银行网银系统的用户界面”的流程。我所在团队参与了改善该系统的工作。这次改版的主要原因，用他们管理 人员的话说就是：“用户经常抱怨，其中有许多人已经不再使用了。”
+
+与实际用户共处了几个小时后，我们便发现了主要问题。账户与信用卡信息被深埋在了次级导航中。用户很难看到消费信息，以及账户和信用卡状态。显然， 该应用程序已经变成为银行员工设计的了，只有他们才熟悉专业术语，很好地解读程序中的数字。
+
+在紧迫的时间内，我们遵循了文中所描述的设计流程，并取得了一定成功。由于问题明显，在时间很短的情况下，我们依旧清楚地了解自己的主要任务和行动 方式。我们创建了一个“仪表板”，提供了所有帐户及信用卡状态的明确信息。新的导航让用户更方便地查询信息。同时报告也方便用户理解了，还加入了一些新的 功能。
+
+我们只进行了部分调整，但由于改善了用户完成关键任务的流程，也就极大地提高了整体的用户体验。
+
+## 八. 最后的思考
+
+商务Web应用程序的界面设计是一项艰巨的工作，它充斥着各项妥协。你必须在客户和用户需求之间，商务需求和用户之间，新手和专家用户之间，功能和简洁之 间妥协。它需要你充分理解用户和他们的任务，以及界面设计准则和版式。尽管困难，但这项工作却很有趣，你可以从每个项目中学到很多新的东西，并将它用到网 站设计中去。
+
+英文原文: [Designing User Interfaces For Business Web Applications](http://www.smashingmagazine.com/2010/02/25/designing-user-interfaces-for-business-web-applications/)  
+中文译文: [Shur Design](http://hi.baidu.com/shru/blog/item/e16058d62c23682406088b30.html)

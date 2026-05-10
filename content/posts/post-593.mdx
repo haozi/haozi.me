@@ -1,0 +1,27 @@
+---
+title: "jquery捕捉ctrl+enter(回车)事件"
+date: "2011-02-11"
+category: jQuery
+archived: true
+sourceUrl: "http://haozi.me/post/593.html"
+---
+
+网页设置快捷键对提高用户体验很有好处。jQuery中对键盘事件进行了修正  
+调用函数的时候传入事件即可。  
+通过事件的which可以找到键码  
+不过当有组合键的时候还需要注意一下  
+如ctrl+enter键，虽然都是用e.ctrlKey但是 enter键的键码不是始终为13了  
+在标准浏览器中 判断 ctrl+enter 是 e.ctrlKey && e.which ==13  
+在万恶的ie6中 判断ctrl+enter 是 e.ctrlKey && e.which ==10
+
+$(document).keypress(function(e)\{  
+        if(e.ctrlKey && e.witch \==13 || e.which \== 10)\{  
+            alert("你按的是ctrl+回车");  
+        \}else if(e.shiftKey && e.which\==13 || e.which \== 10)\{  
+            alert("你按的是shift+回车");  
+        \}else if(e.which \== 13)\{  
+            alert("你按的是回车");  
+        \};  
+\});
+
+[查看示例](/demo/593)

@@ -1,0 +1,31 @@
+---
+title: "一行两列背景自适应的简单写法（纯CSS）"
+date: "2008-07-21"
+category: CSS
+archived: true
+sourceUrl: "http://haozi.me/post/570.html"
+---
+
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+&lt;[html](http://december.com/html/4/element/html.html) xmlns\="http://www.w3.org/1999/xhtml"\>  
+&lt;[head](http://december.com/html/4/element/head.html)\>  
+&lt;[meta](http://december.com/html/4/element/meta.html) http-equiv\="Content-Type" content\="text/html; charset=utf-8" /\>  
+&lt;[title](http://december.com/html/4/element/title.html)\>http://div.li&lt;/[title](http://december.com/html/4/element/title.html)\>  
+&lt;[style](http://december.com/html/4/element/style.html)\>  
+\*\{ padding:0; margin:0; font-size:12px; line-height:1.8; font-family:Verdana;\}  
+#box\{ background:#FFFF66;width:700px; padding-left:200px; float:left;\}  
+#content\{ background: #FF6600; float:left;\}  
+#right\{ width:695px; float:right;\}  
+#left\{ width:200px; margin-left:-200px; position:static; float:left;\}  
+\* html #left\{position:fixed;\}  
+&lt;/[style](http://december.com/html/4/element/style.html)\>  
+&lt;/[head](http://december.com/html/4/element/head.html)\>  
+&lt;[body](http://december.com/html/4/element/body.html)\>  
+&lt;[div](http://december.com/html/4/element/div.html) id\="box"\>  
+  &lt;[div](http://december.com/html/4/element/div.html) id\="content"\>  
+    &lt;[div](http://december.com/html/4/element/div.html) id\="right"\>right &lt;[br](http://december.com/html/4/element/br.html) /\>right&lt;/[div](http://december.com/html/4/element/div.html)\>  
+    &lt;[div](http://december.com/html/4/element/div.html) id\="left"\>left&lt;/[div](http://december.com/html/4/element/div.html)\>  
+  &lt;/[div](http://december.com/html/4/element/div.html)\>  
+&lt;/[div](http://december.com/html/4/element/div.html)\>  
+&lt;/[body](http://december.com/html/4/element/body.html)\>  
+&lt;/[html](http://december.com/html/4/element/html.html)\>
